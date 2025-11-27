@@ -13,10 +13,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Terminal, Cpu, Shield, Activity, Lock, AlertTriangle, CheckCircle, Github, Sun, Moon, Zap, Code, Database, Network, HardDrive, Server } from "lucide-react";
 
 export default function Home() {
-
-
   return (
-    <div className="min-h-screen  bg-black p-3">
+    <div className="min-h-screen bg-black p-3">
       <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.02)_50%,transparent_100%)] bg-size[100%_4px] animate-scanline pointer-events-none" />
       
       <div className="relative max-w-[1800px] mx-auto space-y-3">
@@ -28,8 +26,9 @@ export default function Home() {
           </div>
           <div className="flex gap-2">
             <Button size="sm" asChild><a href="#components">Docs</a></Button>
-            <Button className='flex-row'size="sm" asChild onClick={() => window.open("https://github.com/woustachemax/glitchcn-ui", "_blank")}>
-              <Github size={14} className="mr-1" /></Button>
+            <Button size="sm" onClick={() => window.open("https://github.com/woustachemax/glitchcn-ui", "_blank")}>
+              <Github size={14} />
+            </Button>
           </div>
         </header>
 
@@ -119,7 +118,7 @@ export default function Home() {
                 <Input placeholder="$ password" type="password" />
               </div>
               <div className="space-y-1">
-                <div className="flex justify-between text-xs text-emerald-300 "><span>Progress bar</span><span>73%</span></div>
+                <div className="flex justify-between text-xs text-emerald-300"><span>Progress bar</span><span>73%</span></div>
                 <Progress value={73} />
               </div>
             </div>
@@ -330,7 +329,7 @@ export default function Home() {
           <div className="col-span-12">
             <Separator />
             <footer className="text-center py-3">
-              <p className="font-mono text-xs text-emerald-400/70 ">
+              <p className="font-mono text-xs text-emerald-400/70">
                 Made with 💚 by <a href="https://www.siddharththakkar.xyz/" target="_blank" rel="noopener noreferrer" className="text-emerald-300 hover:text-cyan-400">woustachemax</a>
               </p>
             </footer>
