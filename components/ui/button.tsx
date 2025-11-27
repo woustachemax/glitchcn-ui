@@ -68,24 +68,18 @@ function Button({
   variant,
   size,
   asChild = false,
-  onClick,
   children,
   ...props
-}: React.ComponentProps<"button"> &
+}: React.ComponentPropsWithoutRef<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
   }) {
   const Comp = asChild ? Slot : "button"
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onClick?.(e)
-  }
-
   return (
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
-      onClick={handleClick}
       {...props}
     >
       <span className="relative z-10 flex items-center justify-center gap-2">
@@ -94,6 +88,7 @@ function Button({
     </Comp>
   )
 }
+
 
 export { Button, buttonVariants }
 

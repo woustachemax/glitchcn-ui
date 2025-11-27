@@ -29,7 +29,7 @@ function TabsList({
         "inline-flex h-9 w-fit items-center justify-center p-[3px] gap-1",
         "bg-[#001a1a] border border-emerald-500/50 clip-corners-tabs relative overflow-hidden",
         "shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15)]",
-        "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] before:bg-[length:100%_4px] before:animate-scanline before:pointer-events-none before:z-0",
+        "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] before:bg-size[:100%_4px] before:animate-scanline before:pointer-events-none before:z-0",
         "data-[theme=light]:bg-[#001a1a] data-[theme=light]:border-emerald-500/50",
         className
       )}

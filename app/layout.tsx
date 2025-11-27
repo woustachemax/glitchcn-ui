@@ -5,7 +5,7 @@ import { Providers } from "./providers";
 
 
 export const metadata: Metadata = {
-  title: "Hackercn",
+  title: "Glitchcn/ui",
   description: "I don't have a desc, yet!",
   icons: {
     icon: '/favicon.svg'

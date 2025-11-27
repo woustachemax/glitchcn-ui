@@ -11,6 +11,21 @@
   font-family: var(--font-mono);
 }
 
+html, body {
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
