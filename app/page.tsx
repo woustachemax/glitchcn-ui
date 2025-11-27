@@ -10,15 +10,10 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { useTheme } from "next-themes";
 import { Terminal, Cpu, Shield, Activity, Lock, AlertTriangle, CheckCircle, Github, Sun, Moon, Zap, Code, Database, Network, HardDrive, Server } from "lucide-react";
 
 export default function Home() {
-  const { theme, setTheme } = useTheme();
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-black p-3">
@@ -28,13 +23,10 @@ export default function Home() {
         <header className="flex items-center justify-between p-3 border-b border-emerald-500/30">
           <div className="flex items-center gap-2 group cursor-pointer">
             <Terminal className="text-cyan-400" size={28} />
-            <h1 className="font-mono text-2xl font-bold tracking-wider uppercase text-emerald-300">GLITCHCN</h1>
+            <h1 className="font-mono text-2xl font-bold tracking-wider text-emerald-300">Glitchcn/ui</h1>
             <span className="font-mono text-xs text-emerald-400/50 ml-2">v1.0.0</span>
           </div>
           <div className="flex gap-2">
-            <Button size="sm" onClick={toggleTheme}>
-              {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
-            </Button>
             <Button size="sm" asChild><a href="#components">Docs</a></Button>
             <Button className='flex-row'size="sm" asChild onClick={() => window.open("https://github.com/woustachemax/glitchcn-ui", "_blank")}>
               <Github size={14} className="mr-1" /></Button>

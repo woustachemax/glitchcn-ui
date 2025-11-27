@@ -25,7 +25,6 @@ html {
   scrollbar-width: none;
 }
 
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
