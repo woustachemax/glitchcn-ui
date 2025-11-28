@@ -1,0 +1,29 @@
+{
+  "name": "table",
+  "type": "registry:ui",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "ui/table.tsx",
+      "type": "registry:ui"
+    }
+  ],
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {
+          "animation": {
+            "scanline": "scanline 8s linear infinite"
+          },
+          "keyframes": {
+            "scanline": {
+              "0%": { "background-position": "0 0" },
+              "100%": { "background-position": "0 200%" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

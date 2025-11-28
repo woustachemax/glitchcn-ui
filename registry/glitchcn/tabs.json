@@ -1,0 +1,29 @@
+{
+  "name": "tabs",
+  "type": "registry:ui",
+  "dependencies": ["@radix-ui/react-tabs"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "ui/tabs.tsx",
+      "type": "registry:ui"
+    }
+  ],
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {
+          "animation": {
+            "scanline": "scanline 8s linear infinite"
+          },
+          "keyframes": {
+            "scanline": {
+              "0%": { "background-position": "0 0" },
+              "100%": { "background-position": "0 200%" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

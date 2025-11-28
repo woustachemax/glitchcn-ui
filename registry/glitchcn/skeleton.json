@@ -1,0 +1,12 @@
+{
+  "name": "skeleton",
+  "type": "registry:ui",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "ui/skeleton.tsx",
+      "type": "registry:ui"
+    }
+  ]
+}
