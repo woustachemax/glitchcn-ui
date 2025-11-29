@@ -18,5 +18,7 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@glitchcn": "https://glitchcn-ui.vercel.app/r/{name}.json"
+  }
 }

@@ -4,12 +4,14 @@
   "registryUrl": "https://glitchcn-ui.vercel.app/api/registry",
   "description": "Terminal-styled cyberpunk component library",
   "author": "woustachemax",
+  "scope": "@glitchcn",
   "styles": [
     {
       "name": "glitchcn",
       "label": "GlitchCN"
     }
   ],
+
   "components": [
     {
       "name": "alert",
@@ -54,7 +56,7 @@
     {
       "name": "separator",
       "type": "registry:ui",
-      "files": ["glitchcn/seperator.json"]
+      "files": ["glitchcn/separator.json"]
     },
     {
       "name": "sheet",

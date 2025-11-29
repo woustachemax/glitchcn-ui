@@ -10,34 +10,50 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Terminal, Cpu, Shield, Activity, Lock, AlertTriangle, CheckCircle, Github, Sun, Moon, Zap, Code, Database, Network, HardDrive, Server } from "lucide-react";
+import { Terminal, Cpu, Shield, Activity, Lock, AlertTriangle, CheckCircle, Github, Zap, Code, Database, Network, HardDrive, Server, Copy, Check } from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
+  const [copied, setCopied] = useState(false);
+  const [configCopied, setConfigCopied] = useState(false);
+
+  const copyInstallCommand = () => {
+    navigator.clipboard.writeText("pnpm dlx shadcn@latest add @glitchcn/button");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const copyRegistryConfig = () => {
+    navigator.clipboard.writeText(`"@glitchcn": "https://glitchcn-ui.vercel.app/r/{name}.json"`);
+    setConfigCopied(true);
+    setTimeout(() => setConfigCopied(false), 2000);
+  };
+
   return (
-    <div className="min-h-screen bg-black p-3">
+    <div className="min-h-screen bg-black p-2 sm:p-3">
       <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.02)_50%,transparent_100%)] bg-size[100%_4px] animate-scanline pointer-events-none" />
       
-      <div className="relative max-w-[1800px] mx-auto space-y-3">
-        <header className="flex items-center justify-between p-3 border-b border-emerald-500/30">
+      <div className="relative max-w-[1800px] mx-auto space-y-2 sm:space-y-3">
+        <header className="flex items-center justify-between p-2 sm:p-3 border-b border-emerald-500/30">
           <div className="flex items-center gap-2 group cursor-pointer">
-            <Terminal className="text-cyan-400" size={28} />
-            <h1 className="font-mono text-2xl font-bold tracking-wider text-emerald-300">Glitchcn/ui</h1>
-            <span className="font-mono text-xs text-emerald-400/50 ml-2">v1.0.0</span>
+            <Terminal className="text-cyan-400" size={20} />
+            <h1 className="font-mono text-lg sm:text-2xl font-bold tracking-wider text-emerald-300">Glitchcn/ui</h1>
+            <span className="font-mono text-xs text-emerald-400/50 ml-1 sm:ml-2 hidden sm:inline">v1.0.0</span>
           </div>
           <div className="flex gap-2">
-            <Button size="sm" asChild><a href="#components">Docs</a></Button>
+            <Button size="sm" className="hidden sm:inline-flex" asChild><a href="#components">Docs</a></Button>
             <Button size="sm" onClick={() => window.open("https://github.com/woustachemax/glitchcn-ui", "_blank")}>
               <Github size={14} />
             </Button>
           </div>
         </header>
 
-        <div className="grid grid-cols-12 gap-3" id="components">
-          <div className="col-span-3 space-y-3">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-3" id="components">
+          <div className="lg:col-span-3 space-y-2 sm:space-y-3">
             <Card>
               <CardHeader>
-                <CardTitle><Terminal className="inline mr-1" size={14} />Components</CardTitle>
-                <CardDescription>UI Library Demo</CardDescription>
+                <CardTitle className="text-sm sm:text-base"><Terminal className="inline mr-1" size={14} />Components</CardTitle>
+                <CardDescription className="text-xs">UI Library Demo</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-1 text-xs">
@@ -54,8 +70,26 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle><Shield className="inline mr-1" size={14} />Features</CardTitle>
-                <CardDescription>Terminal styling</CardDescription>
+                <CardTitle className="text-sm sm:text-base"><Terminal className="inline mr-1" size={14} />Setup</CardTitle>
+                <CardDescription className="text-xs">Add to components.json</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="p-2 bg-black/40 rounded text-xs border border-emerald-500/30 font-mono overflow-x-auto">
+                  <pre className="text-emerald-300">"registries": &#123;{'\n'}  "@glitchcn": "..."{'\n'}&#125;</pre>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button size="sm" onClick={copyRegistryConfig}>
+                  {configCopied ? <Check size={14} className="mr-1" /> : <Copy size={14} className="mr-1" />}
+                  {configCopied ? "Copied" : "Copy"}
+                </Button>
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm sm:text-base"><Shield className="inline mr-1" size={14} />Features</CardTitle>
+                <CardDescription className="text-xs">Terminal styling</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-1 text-xs">
@@ -65,22 +99,27 @@ export default function Home() {
                   <div className="flex items-center gap-1"><Code size={12} className="text-purple-400" /><span>TypeScript</span></div>
                 </div>
               </CardContent>
-              <CardFooter><Button size="sm" asChild><a href="https://github.com/woustachemax/glitchcn" target="_blank" rel="noopener noreferrer">Install</a></Button></CardFooter>
+              <CardFooter>
+                <Button size="sm" onClick={copyInstallCommand}>
+                  {copied ? <Check size={14} className="mr-1" /> : <Copy size={14} className="mr-1" />}
+                  {copied ? "Copied" : "Install"}
+                </Button>
+              </CardFooter>
             </Card>
 
             <Alert>
               <CheckCircle size={14} />
-              <AlertTitle>Ready to use</AlertTitle>
-              <AlertDescription>Copy paste components</AlertDescription>
+              <AlertTitle className="text-sm">Ready to use</AlertTitle>
+              <AlertDescription className="text-xs">Copy paste components</AlertDescription>
             </Alert>
 
             <Alert variant="destructive">
               <AlertTriangle size={14} />
-              <AlertTitle>Example Alert</AlertTitle>
-              <AlertDescription>Destructive variant demo</AlertDescription>
+              <AlertTitle className="text-sm">Example Alert</AlertTitle>
+              <AlertDescription className="text-xs">Destructive variant demo</AlertDescription>
             </Alert>
 
-            <Card>
+            <Card className="hidden lg:block">
               <CardHeader>
                 <CardTitle className="text-sm"><Database className="inline mr-1" size={14} />System Info</CardTitle>
               </CardHeader>
@@ -93,11 +132,11 @@ export default function Home() {
             </Card>
           </div>
 
-          <div className="col-span-6 space-y-3">
+          <div className="lg:col-span-6 space-y-2 sm:space-y-3">
             <Card>
               <CardHeader>
-                <CardTitle><Cpu className="inline mr-1" size={14} />Progress Demo</CardTitle>
-                <CardDescription>Animated bars</CardDescription>
+                <CardTitle className="text-sm sm:text-base"><Cpu className="inline mr-1" size={14} />Progress Demo</CardTitle>
+                <CardDescription className="text-xs">Animated bars</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
                 <div className="flex justify-between text-xs"><span>Example</span><span>82%</span></div>
@@ -113,7 +152,7 @@ export default function Home() {
             <div className="space-y-2">
               <Input placeholder="$ input component demo..." />
               <Input placeholder="$ another example input..." />
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <Input placeholder="$ user@host" />
                 <Input placeholder="$ password" type="password" />
               </div>
@@ -124,11 +163,11 @@ export default function Home() {
             </div>
 
             <Tabs defaultValue="sys">
-              <TabsList>
-                <TabsTrigger value="sys">Tabs</TabsTrigger>
-                <TabsTrigger value="net">Example</TabsTrigger>
-                <TabsTrigger value="log">Demo</TabsTrigger>
-                <TabsTrigger value="test">Test</TabsTrigger>
+              <TabsList className="w-full">
+                <TabsTrigger value="sys" className="flex-1">Tabs</TabsTrigger>
+                <TabsTrigger value="net" className="flex-1">Example</TabsTrigger>
+                <TabsTrigger value="log" className="flex-1">Demo</TabsTrigger>
+                <TabsTrigger value="test" className="flex-1">Test</TabsTrigger>
               </TabsList>
               <TabsContent value="sys" className="pt-2">
                 <Card>
@@ -152,7 +191,7 @@ export default function Home() {
               </TabsContent>
             </Tabs>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
               <Card>
                 <CardHeader>
                   <CardTitle className="text-sm"><Network className="inline mr-1" size={14} />Network</CardTitle>
@@ -183,10 +222,10 @@ export default function Home() {
               <Button size="sm">Execute</Button>
               <Dialog>
                 <DialogTrigger asChild><Button size="sm">Modal</Button></DialogTrigger>
-                <DialogContent>
+                <DialogContent className="max-w-[95vw] sm:max-w-[425px]">
                   <DialogHeader>
-                    <DialogTitle>Dialog Component</DialogTitle>
-                    <DialogDescription>Example modal window</DialogDescription>
+                    <DialogTitle className="text-sm sm:text-base">Dialog Component</DialogTitle>
+                    <DialogDescription className="text-xs">Example modal window</DialogDescription>
                   </DialogHeader>
                   <div className="space-y-2">
                     <div className="p-2 bg-black/40 rounded text-xs border border-emerald-500/30">
@@ -194,9 +233,9 @@ export default function Home() {
                     </div>
                     <Input placeholder="demo input..." />
                   </div>
-                  <DialogFooter>
-                    <Button size="sm" variant="destructive">Cancel</Button>
-                    <Button size="sm">Confirm</Button>
+                  <DialogFooter className="flex-col sm:flex-row gap-2">
+                    <Button size="sm" variant="destructive" className="w-full sm:w-auto">Cancel</Button>
+                    <Button size="sm" className="w-full sm:w-auto">Confirm</Button>
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
@@ -214,7 +253,7 @@ export default function Home() {
                 <CardTitle className="text-sm">Terminal Output</CardTitle>
               </CardHeader>
               <CardContent className="space-y-1">
-                <div className="p-2 bg-black/40 rounded text-xs border border-emerald-500/30 font-mono">
+                <div className="p-2 bg-black/40 rounded text-xs border border-emerald-500/30 font-mono overflow-x-auto">
                   <p className="text-green-400">$ npm install glitchcn</p>
                   <p className="text-emerald-300/70">Installing dependencies...</p>
                   <p className="text-cyan-400">✓ Installed 12 packages</p>
@@ -223,49 +262,51 @@ export default function Home() {
             </Card>
           </div>
 
-          <div className="col-span-3 space-y-3">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Component</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="text-xs">Cards</TableCell>
-                  <TableCell><Badge>Ready</Badge></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="text-xs">Buttons</TableCell>
-                  <TableCell><Badge>Ready</Badge></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="text-xs">Alerts</TableCell>
-                  <TableCell><Badge variant="destructive">Demo</Badge></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="text-xs">Tables</TableCell>
-                  <TableCell><Badge>Ready</Badge></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="text-xs">Dialogs</TableCell>
-                  <TableCell><Badge>Ready</Badge></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="text-xs">Inputs</TableCell>
-                  <TableCell><Badge>Ready</Badge></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="text-xs">Progress</TableCell>
-                  <TableCell><Badge>Ready</Badge></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="text-xs">Tabs</TableCell>
-                  <TableCell><Badge>Ready</Badge></TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+          <div className="lg:col-span-3 space-y-2 sm:space-y-3">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-xs">Component</TableHead>
+                    <TableHead className="text-xs">Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell className="text-xs">Cards</TableCell>
+                    <TableCell><Badge>Ready</Badge></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-xs">Buttons</TableCell>
+                    <TableCell><Badge>Ready</Badge></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-xs">Alerts</TableCell>
+                    <TableCell><Badge variant="destructive">Demo</Badge></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-xs">Tables</TableCell>
+                    <TableCell><Badge>Ready</Badge></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-xs">Dialogs</TableCell>
+                    <TableCell><Badge>Ready</Badge></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-xs">Inputs</TableCell>
+                    <TableCell><Badge>Ready</Badge></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-xs">Progress</TableCell>
+                    <TableCell><Badge>Ready</Badge></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-xs">Tabs</TableCell>
+                    <TableCell><Badge>Ready</Badge></TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
 
             <Card>
               <CardHeader>
@@ -307,10 +348,10 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Alert>
+            <Alert className="hidden sm:flex">
               <Zap size={14} />
-              <AlertTitle>Performance</AlertTitle>
-              <AlertDescription>Optimized rendering</AlertDescription>
+              <AlertTitle className="text-sm">Performance</AlertTitle>
+              <AlertDescription className="text-xs">Optimized rendering</AlertDescription>
             </Alert>
 
             <Card>
@@ -326,7 +367,7 @@ export default function Home() {
             </Card>
           </div>
 
-          <div className="col-span-12">
+          <div className="col-span-1 lg:col-span-12">
             <Separator />
             <footer className="text-center py-3">
               <p className="font-mono text-xs text-emerald-400/70">
