@@ -18,15 +18,9 @@ export default function Home() {
   const [configCopied, setConfigCopied] = useState(false);
 
   const copyInstallCommand = () => {
-    navigator.clipboard.writeText("pnpm dlx shadcn@latest add @glitchcn/button");
+    navigator.clipboard.writeText("npx shadcn@latest add https://glitchcn-ui.vercel.app/r/button.json");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
-
-  const copyRegistryConfig = () => {
-    navigator.clipboard.writeText(`"@glitchcn": "https://glitchcn-ui.vercel.app/r/{name}.json"`);
-    setConfigCopied(true);
-    setTimeout(() => setConfigCopied(false), 2000);
   };
 
   return (
@@ -70,25 +64,25 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-sm sm:text-base"><Terminal className="inline mr-1" size={14} />Setup</CardTitle>
-                <CardDescription className="text-xs">Add to components.json</CardDescription>
+                <CardTitle className="text-sm sm:text-base"><Shield className="inline mr-1" size={14} />Install</CardTitle>
+                <CardDescription className="text-xs">Add any component</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="p-2 bg-black/40 rounded text-xs border border-emerald-500/30 font-mono overflow-x-auto">
-                  <pre className="text-emerald-300">"registries": &#123;{'\n'}  "@glitchcn": "..."{'\n'}&#125;</pre>
+                  <pre className="text-emerald-300">npx shadcn add{'\n'}glitchcn-ui.vercel.app{'\n'}/r/button.json</pre>
                 </div>
               </CardContent>
               <CardFooter>
-                <Button size="sm" onClick={copyRegistryConfig}>
-                  {configCopied ? <Check size={14} className="mr-1" /> : <Copy size={14} className="mr-1" />}
-                  {configCopied ? "Copied" : "Copy"}
+                <Button size="sm" onClick={copyInstallCommand}>
+                  {copied ? <Check size={14} className="mr-1" /> : <Copy size={14} className="mr-1" />}
+                  {copied ? "Copied" : "Copy"}
                 </Button>
               </CardFooter>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-sm sm:text-base"><Shield className="inline mr-1" size={14} />Features</CardTitle>
+                <CardTitle className="text-sm sm:text-base"><Code className="inline mr-1" size={14} />Features</CardTitle>
                 <CardDescription className="text-xs">Terminal styling</CardDescription>
               </CardHeader>
               <CardContent>
@@ -99,12 +93,7 @@ export default function Home() {
                   <div className="flex items-center gap-1"><Code size={12} className="text-purple-400" /><span>TypeScript</span></div>
                 </div>
               </CardContent>
-              <CardFooter>
-                <Button size="sm" onClick={copyInstallCommand}>
-                  {copied ? <Check size={14} className="mr-1" /> : <Copy size={14} className="mr-1" />}
-                  {copied ? "Copied" : "Install"}
-                </Button>
-              </CardFooter>
+              <CardFooter><Button size="sm" asChild><a href="https://github.com/woustachemax/glitchcn-ui" target="_blank" rel="noopener noreferrer">GitHub</a></Button></CardFooter>
             </Card>
 
             <Alert>
