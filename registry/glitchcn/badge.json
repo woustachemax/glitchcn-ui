@@ -2,10 +2,13 @@
   "name": "badge",
   "type": "registry:ui",
   "dependencies": [
-    "class-variance-authority"
+  "@radix-ui/react-slot",
+  "class-variance-authority",
+  "lucide-react"
+
   ],
   "devDependencies": [],
-  "registryDependencies": [],
+  "registryDependencies": ["utils"],
   "files": [
     {
       "path": "components/ui/badge.tsx",

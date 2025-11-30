@@ -5,7 +5,7 @@
     "@radix-ui/react-tooltip"
   ],
   "devDependencies": [],
-  "registryDependencies": [],
+  "registryDependencies": ["utils"],
   "files": [
     {
       "path": "components/ui/tooltip.tsx",

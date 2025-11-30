@@ -2,10 +2,12 @@
   "name": "separator",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-separator"
+    "@radix-ui/react-separator",
+    "lucide-react"
+
   ],
   "devDependencies": [],
-  "registryDependencies": [],
+  "registryDependencies": ["utils"],
   "files": [
     {
       "path": "components/ui/separator.tsx",

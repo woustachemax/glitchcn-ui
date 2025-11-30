@@ -5,7 +5,7 @@
     "@radix-ui/react-tabs"
   ],
   "devDependencies": [],
-  "registryDependencies": [],
+  "registryDependencies": ["utils"],
   "files": [
     {
       "path": "components/ui/tabs.tsx",

@@ -11,8 +11,12 @@
       "label": "GlitchCN"
     }
   ],
-
   "components": [
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "files": ["glitchcn/utils.json"]
+    },
     {
       "name": "alert",
       "type": "registry:ui",
@@ -87,6 +91,11 @@
       "name": "tooltip",
       "type": "registry:ui",
       "files": ["glitchcn/tooltip.json"]
+    },
+    {
+      "name": "all",
+      "type": "registry:ui",
+      "files": ["glitchcn/all.json"]
     }
   ]
 }

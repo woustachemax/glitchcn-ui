@@ -1,0 +1,10 @@
+{
+  "name": "all",
+  "type": "registry:ui",
+  "registryDependencies": [
+    "alert", "badge", "button", "card", "command", "dialog",
+    "input", "progress", "separator", "sheet", "sidebar",
+    "skeleton", "table", "tabs", "tooltip", "utils"
+  ],
+  "files": []
+}

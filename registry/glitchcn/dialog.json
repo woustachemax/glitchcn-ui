@@ -2,10 +2,11 @@
   "name": "dialog",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-dialog"
+    "@radix-ui/react-dialog",
+    "lucide-react"
   ],
   "devDependencies": [],
-  "registryDependencies": [],
+  "registryDependencies": ["utils"],
   "files": [
     {
       "path": "components/ui/dialog.tsx",

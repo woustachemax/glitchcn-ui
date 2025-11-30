@@ -3,10 +3,12 @@
   "type": "registry:ui",
   "dependencies": [
     "@radix-ui/react-separator",
-    "@radix-ui/react-slot"
+    "@radix-ui/react-slot",
+    "class-variance-authority",
+    "lucide-react"
   ],
   "devDependencies": [],
-  "registryDependencies": [],
+  "registryDependencies": ["button", "input", "separator", "sheet", "skeleton", "tooltip", "utils"],
   "files": [
     {
       "path": "components/ui/sidebar.tsx",

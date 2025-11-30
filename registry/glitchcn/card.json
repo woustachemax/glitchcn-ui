@@ -1,9 +1,9 @@
 {
   "name": "card",
   "type": "registry:ui",
-  "dependencies": [],
+  "dependencies": ["lucide-react"],
   "devDependencies": [],
-  "registryDependencies": [],
+  "registryDependencies": ["utils"],
   "files": [
     {
       "path": "components/ui/card.tsx",

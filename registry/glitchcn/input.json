@@ -1,9 +1,9 @@
 {
   "name": "input",
   "type": "registry:ui",
-  "dependencies": [],
+  "dependencies": ["lucide-react"],
   "devDependencies": [],
-  "registryDependencies": [],
+  "registryDependencies": ["utils"],
   "files": [
     {
       "path": "components/ui/input.tsx",

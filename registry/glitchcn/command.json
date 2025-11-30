@@ -3,10 +3,11 @@
   "type": "registry:ui",
   "dependencies": [
     "cmdk",
-    "@radix-ui/react-dialog"
+    "@radix-ui/react-dialog",
+    "lucide-react"
   ],
   "devDependencies": [],
-  "registryDependencies": [],
+  "registryDependencies": ["dialog", "utils"],
   "files": [
     {
       "path": "components/ui/command.tsx",
