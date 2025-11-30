@@ -25,7 +25,7 @@ export default function ComponentsListPage() {
     <div className="max-w-6xl space-y-8">
       <div className="space-y-4">
         <h1 className="font-mono text-5xl font-bold text-emerald-300">Components</h1>
-        <p className="text-xl text-emerald-300/70">
+        <p className="font-mono text-xl text-emerald-300/70">
           Browse all available components. Click to view details or copy install command.
         </p>
       </div>
