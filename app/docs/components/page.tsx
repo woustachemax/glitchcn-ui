@@ -16,7 +16,7 @@ export default function ComponentsListPage() {
   const [copied, setCopied] = useState<string | null>(null);
 
   const copyInstall = (comp: string) => {
-    navigator.clipboard.writeText(`npx shadcn@latest add https://glitchcn-ui.vercel.app/r/${comp}.json`);
+    navigator.clipboard.writeText(`npx shadcn@latest add @glitchcn/${comp}`);
     setCopied(comp);
     setTimeout(() => setCopied(null), 2000);
   };
@@ -52,9 +52,9 @@ export default function ComponentsListPage() {
                   {copied === comp ? <Check size={14} /> : <Copy size={14} />}
                 </Button>
               </div>
-              <div className="bg-black border border-emerald-500/30 rounded p-2 overflow-x-auto">
+              <div className="bg-black border border-emerald-500/30 rounded p-2">
                 <code className="font-mono text-xs text-emerald-300/80">
-                  npx shadcn add glitchcn-ui.vercel.app/r/{comp}.json
+                  npx shadcn@latest add @glitchcn/{comp}
                 </code>
               </div>
             </CardContent>

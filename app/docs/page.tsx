@@ -113,33 +113,51 @@ export default function GettingStarted() {
         <CardHeader>
           <CardTitle>Step 2: Install Components</CardTitle>
           <CardDescription>
-            Use shadcn CLI to add any component
+            Use shadcn CLI with the @glitchcn registry
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-emerald-300/70">
-            Install individual components using the shadcn CLI:
-          </p>
-          <div className="relative">
-            <button
-              onClick={() => copy("npx shadcn@latest add https://glitchcn-ui.vercel.app/r/button.json", "install-cmd")}
-              className="absolute top-2 right-2 p-2 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors z-10"
-            >
-              {copied === "install-cmd" ? (
-                <Check className="h-4 w-4 text-emerald-400" />
-              ) : (
-                <Copy className="h-4 w-4 text-emerald-400" />
-              )}
-            </button>
-            <pre className="bg-black/60 p-4 pr-14 rounded border border-emerald-500/20">
-              <code className="text-emerald-300 font-mono text-sm break-all">
-                npx shadcn@latest add https://glitchcn-ui.vercel.app/r/button.json
-              </code>
-            </pre>
+          <div>
+            <p className="text-emerald-300/70 mb-3 font-bold">Install all components:</p>
+            <div className="relative">
+              <button
+                onClick={() => copy("npx shadcn@latest add @glitchcn/all", "install-all")}
+                className="absolute top-2 right-2 p-2 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors z-10"
+              >
+                {copied === "install-all" ? (
+                  <Check className="h-4 w-4 text-emerald-400" />
+                ) : (
+                  <Copy className="h-4 w-4 text-emerald-400" />
+                )}
+              </button>
+              <pre className="bg-black/60 p-4 pr-14 rounded border border-emerald-500/20">
+                <code className="text-emerald-300 font-mono text-sm">
+                  npx shadcn@latest add @glitchcn/all
+                </code>
+              </pre>
+            </div>
           </div>
-          <p className="text-emerald-300/70 text-sm">
-            Replace <span className="text-cyan-400 font-mono">button</span> with any component name from the sidebar.
-          </p>
+
+          <div>
+            <p className="text-emerald-300/70 mb-3 font-bold">Or install individual components:</p>
+            <div className="relative">
+              <button
+                onClick={() => copy("npx shadcn@latest add @glitchcn/button @glitchcn/card", "install-individual")}
+                className="absolute top-2 right-2 p-2 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors z-10"
+              >
+                {copied === "install-individual" ? (
+                  <Check className="h-4 w-4 text-emerald-400" />
+                ) : (
+                  <Copy className="h-4 w-4 text-emerald-400" />
+                )}
+              </button>
+              <pre className="bg-black/60 p-4 pr-14 rounded border border-emerald-500/20">
+                <code className="text-emerald-300 font-mono text-sm">
+                  npx shadcn@latest add @glitchcn/button @glitchcn/card
+                </code>
+              </pre>
+            </div>
+          </div>
         </CardContent>
       </Card>
 

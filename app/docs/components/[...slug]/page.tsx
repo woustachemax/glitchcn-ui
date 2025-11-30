@@ -349,10 +349,10 @@ export default function ComponentPage({
           <CardTitle>Installation</CardTitle>
         </CardHeader>
         <CardContent className="relative">
-          <CopyButton text={`npx shadcn@latest add https://glitchcn-ui.vercel.app/r/${componentName}.json`} />
+          <CopyButton text={`npx shadcn@latest add @glitchcn/${componentName}`} />
           <pre className="bg-black/60 p-4 pr-12 rounded border border-emerald-500/20">
-            <code className="text-emerald-300 font-mono text-sm break-all">
-              npx shadcn@latest add https://glitchcn-ui.vercel.app/r/{componentName}.json
+            <code className="text-emerald-300 font-mono text-sm">
+              npx shadcn@latest add @glitchcn/{componentName}
             </code>
           </pre>
         </CardContent>
