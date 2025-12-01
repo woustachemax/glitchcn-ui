@@ -21,15 +21,19 @@ export default function GettingStarted() {
   "tailwind": {
     "config": "tailwind.config.ts",
     "css": "app/globals.css",
-    "baseColor": "slate",
+    "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
   },
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils"
+  },
+  "registries": {
+    "@glitchcn": "https://glitchcn-ui.vercel.app/r/{name}.json"
   }
-}`;
+}
+`;
 
   return (
     <div className="max-w-4xl space-y-8">

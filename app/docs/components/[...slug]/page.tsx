@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Terminal, Info, Copy, Check } from "lucide-react";
+import { Terminal, Info, Copy, Check, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 
 const docs: Record<string, { 
@@ -18,6 +18,7 @@ const docs: Record<string, {
   description: string; 
   preview: React.ReactNode;
   code: string;
+  dependencies?: string[];
 }> = {
   alert: {
     title: "Alert",
@@ -112,6 +113,7 @@ const docs: Record<string, {
     <CommandItem>Settings</CommandItem>
   </CommandList>
 </Command>`,
+    dependencies: ["dialog"],
   },
   dialog: {
     title: "Dialog",
@@ -196,7 +198,7 @@ const docs: Record<string, {
 <Sheet>
   <SheetTrigger>Open</SheetTrigger>
   <SheetContent>
-    {/* Content */}
+    Content here
   </SheetContent>
 </Sheet>`,
   },
@@ -213,7 +215,7 @@ const docs: Record<string, {
 <SidebarProvider>
   <Sidebar>
     <SidebarContent>
-      {/* Your content */}
+      Your content here
     </SidebarContent>
   </Sidebar>
 </SidebarProvider>`,
@@ -302,7 +304,7 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={copy}
-      className="absolute top-4 right-4 p-2 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors"
+      className="absolute top-4 right-4 p-1.5 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors z-10"
     >
       {copied ? (
         <Check className="h-4 w-4 text-emerald-400" />
@@ -335,6 +337,16 @@ export default function ComponentPage({
         <p className="text-emerald-300/70 font-mono">{doc.description}</p>
       </div>
 
+      {doc.dependencies && doc.dependencies.length > 0 && (
+        <Alert variant="default" className="border-amber-500/30 bg-amber-500/5">
+          <AlertTriangle className="h-4 w-4 text-amber-400" />
+          <AlertTitle className="text-amber-300">Additional Components Required</AlertTitle>
+          <AlertDescription className="text-amber-300/70">
+            This component will also install: {doc.dependencies.join(", ")}
+          </AlertDescription>
+        </Alert>
+      )}
+
       <Card>
         <CardHeader>
           <CardTitle>Preview</CardTitle>
@@ -348,13 +360,15 @@ export default function ComponentPage({
         <CardHeader>
           <CardTitle>Installation</CardTitle>
         </CardHeader>
-        <CardContent className="relative">
-          <CopyButton text={`npx shadcn@latest add @glitchcn/${componentName}`} />
-          <pre className="bg-black/60 p-4 pr-12 rounded border border-emerald-500/20">
-            <code className="text-emerald-300 font-mono text-sm">
-              npx shadcn@latest add @glitchcn/{componentName}
-            </code>
-          </pre>
+        <CardContent>
+          <div className="relative">
+            <CopyButton text={`npx shadcn@latest add @glitchcn/${componentName}`} />
+            <pre className="bg-black/60 p-4 pr-12 rounded border border-emerald-500/20">
+              <code className="text-emerald-300 font-mono text-sm">
+                npx shadcn@latest add @glitchcn/{componentName}
+              </code>
+            </pre>
+          </div>
         </CardContent>
       </Card>
 
@@ -362,13 +376,15 @@ export default function ComponentPage({
         <CardHeader>
           <CardTitle>Usage</CardTitle>
         </CardHeader>
-        <CardContent className="relative">
-          <CopyButton text={doc.code} />
-          <pre className="bg-black/60 p-4 pr-12 rounded border border-emerald-500/20">
-            <code className="text-emerald-300 font-mono text-sm whitespace-pre-wrap wrap-break-words">
-              {doc.code}
-            </code>
-          </pre>
+        <CardContent>
+          <div className="relative">
+            <CopyButton text={doc.code} />
+            <pre className="bg-black/60 p-4 pr-12 rounded border border-emerald-500/20">
+              <code className="text-emerald-300 font-mono text-sm whitespace-pre-wrap wrap-break-words">
+                {doc.code}
+              </code>
+            </pre>
+          </div>
         </CardContent>
       </Card>
     </div>

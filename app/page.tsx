@@ -19,7 +19,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
 
   const copyInstallCommand = () => {
-    navigator.clipboard.writeText("npx shadcn@latest add https://glitchcn-ui.vercel.app/r/[component].json");
+    navigator.clipboard.writeText("npx shadcn@latest add @glitchcn/all");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -79,7 +79,7 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <div className="p-2 bg-black/40 rounded text-xs border border-emerald-500/30 font-mono overflow-x-auto">
-                  <pre className="text-emerald-300">npx shadcn add{'\n'}glitchcn-ui.vercel.app{'\n'}/r/[component].json</pre>
+                  <pre className="text-emerald-300">npx shadcn@latest add{'\n'}@glitchcn/all</pre>
                 </div>
               </CardContent>
               <CardFooter>
