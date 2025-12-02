@@ -2,7 +2,11 @@
   "name": "dialog",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-dialog"
+    "clsx",
+    "tailwind-merge",
+    "lucide-react",
+    "@radix-ui/react-dialog",
+    "@radix-ui/react-icons"
   ],
   "devDependencies": [],
   "registryDependencies": [],

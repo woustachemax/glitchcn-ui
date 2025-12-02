@@ -1,7 +1,9 @@
 {
   "name": "globals",
   "type": "registry:style",
-  "dependencies": [],
+  "dependencies": [
+    "tw-animate-css"
+  ],
   "devDependencies": [],
   "registryDependencies": [],
   "files": [

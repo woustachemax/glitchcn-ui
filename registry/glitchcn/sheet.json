@@ -2,6 +2,9 @@
   "name": "sheet",
   "type": "registry:ui",
   "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "lucide-react",
     "@radix-ui/react-dialog",
     "class-variance-authority"
   ],

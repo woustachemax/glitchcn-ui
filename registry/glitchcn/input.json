@@ -1,7 +1,11 @@
 {
   "name": "input",
   "type": "registry:ui",
-  "dependencies": [],
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "lucide-react"
+  ],
   "devDependencies": [],
   "registryDependencies": [],
   "files": [

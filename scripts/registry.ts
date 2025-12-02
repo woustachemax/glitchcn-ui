@@ -11,7 +11,7 @@ const componentDeps: Record<string, string[]> = {
   button: ['@radix-ui/react-slot', 'class-variance-authority'],
   card: [],
   command: ['cmdk', '@radix-ui/react-dialog'],
-  dialog: ['@radix-ui/react-dialog'],
+  dialog: ['@radix-ui/react-dialog', '@radix-ui/react-icons'],
   input: [],
   progress: ['@radix-ui/react-progress'],
   separator: ['@radix-ui/react-separator'],
@@ -22,6 +22,9 @@ const componentDeps: Record<string, string[]> = {
   tabs: ['@radix-ui/react-tabs'],
   tooltip: ['@radix-ui/react-tooltip'],
 };
+
+// Shared deps used by utils and multiple components
+const baseDeps: string[] = ['clsx', 'tailwind-merge', 'lucide-react'];
 
 const utilsContent = fs.readFileSync(path.join(libDir, 'utils.ts'), 'utf8');
 
@@ -37,7 +40,7 @@ componentFiles.forEach((file: string) => {
   const registryData = {
     name: componentName,
     type: 'registry:ui',
-    dependencies: componentDeps[componentName] || [],
+    dependencies: [...baseDeps, ...(componentDeps[componentName] || [])],
     devDependencies: [],
     registryDependencies: [],
     files: [

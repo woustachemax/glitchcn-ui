@@ -2,6 +2,9 @@
   "name": "alert",
   "type": "registry:ui",
   "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "lucide-react",
     "class-variance-authority"
   ],
   "devDependencies": [],

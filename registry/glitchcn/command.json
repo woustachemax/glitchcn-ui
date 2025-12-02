@@ -2,6 +2,9 @@
   "name": "command",
   "type": "registry:ui",
   "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "lucide-react",
     "cmdk",
     "@radix-ui/react-dialog"
   ],

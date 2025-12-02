@@ -1,7 +1,11 @@
 {
   "name": "table",
   "type": "registry:ui",
-  "dependencies": [],
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "lucide-react"
+  ],
   "devDependencies": [],
   "registryDependencies": [],
   "files": [
