@@ -39,31 +39,26 @@ const SheetContent = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed z-50 flex flex-col gap-4 p-6",
-        "bg-[#001a1a]/95 text-emerald-300 border border-emerald-500/50 relative overflow-hidden",
-        "[clip-path:polygon(0_12px,12px_0,calc(100%-12px)_0,100%_12px,100%_calc(100%-12px),calc(100%-12px)_100%,12px_100%,0_calc(100%-12px))]",
-        "shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15),0_8px_32px_rgba(0,0,0,0.6)]",
-        "data-[state=open]:animate-in data-[state=closed]:animate-out",
-        "data-[state=closed]:duration-300 data-[state=open]:duration-500",
-        side === "right" &&
-          "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
-        side === "left" &&
-          "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
-        side === "top" &&
-          "data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b",
-        side === "bottom" &&
-          "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
+        // Card-like colors and border, but without complex clipping so content is always visible
+        "bg-[#001a1a] text-emerald-300 border border-emerald-500/50",
+        "shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15),0_4px_24px_rgba(0,0,0,0.4)]",
+        side === "right" && "inset-y-0 right-0 h-full w-full max-w-sm",
+        side === "left" && "inset-y-0 left-0 h-full w-full max-w-sm",
+        side === "top" && "inset-x-0 top-0 w-full max-h-[80vh]",
+        side === "bottom" && "inset-x-0 bottom-0 w-full max-h-[80vh]",
         className
       )}
       {...props}
     >
-      <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] pointer-events-none z-0" />
-
-      <SheetPrimitive.Close className="absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-all hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary z-60 text-emerald-400 hover:text-emerald-300 hover:bg-[#002626] p-1.5 border border-transparent hover:border-emerald-500/50 hover:shadow-[0_0_8px_rgba(6,182,212,0.3)]">
+      <SheetPrimitive.Close
+        type="button"
+        className="absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 text-emerald-400 hover:text-emerald-300 hover:bg-[#002626] p-1.5 border border-transparent hover:border-emerald-500/50"
+      >
         <X className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
 
-      <div className="relative z-10 flex flex-col gap-4 h-full">
+      <div className="flex flex-col gap-4 h-full">
         {children}
       </div>
     </SheetPrimitive.Content>

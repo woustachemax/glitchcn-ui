@@ -2,18 +2,22 @@
   "name": "badge",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-slot",
-    "class-variance-authority",
-    "lucide-react"
+    "class-variance-authority"
   ],
   "devDependencies": [],
-  "registryDependencies": ["utils"],
+  "registryDependencies": [],
   "files": [
     {
       "path": "components/ui/badge.tsx",
       "content": "import * as React from \"react\"\nimport { Slot } from \"@radix-ui/react-slot\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@/lib/utils\"\n\nconst badgeVariants = cva(\n  \"inline-flex items-center justify-center gap-1 font-mono tracking-[0.15em] uppercase text-[10px] font-bold transition-all duration-200 [clip-path:polygon(0_4px,4px_0,calc(100%-4px)_0,100%_4px,100%_calc(100%-4px),calc(100%-4px)_100%,4px_100%,0_calc(100%-4px))] relative overflow-hidden cursor-default w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 [&>svg]:pointer-events-none\",\n  {\n    variants: {\n      variant: {\n        default: `\n          bg-[#001a1a] text-emerald-300 border border-emerald-500/70 px-2.5 py-1\n          shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15)]\n          hover:border-emerald-400 hover:text-emerald-200\n          hover:shadow-[inset_0_1px_0_0_rgba(6,182,212,0.3),0_0_8px_rgba(6,182,212,0.4)]\n          before:absolute before:inset-0 before:bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.15),transparent)]\n          before:-translate-x-full hover:before:translate-x-full before:duration-300\n          \n          data-[theme=light]:bg-[#001a1a]\n          data-[theme=light]:text-emerald-300\n          data-[theme=light]:border-emerald-500/70\n          data-[theme=light]:hover:bg-[#002626]\n          data-[theme=light]:hover:border-emerald-400\n          data-[theme=light]:shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15)]\n        `,\n        destructive: `\n          bg-[#1a0000] text-rose-300 border border-rose-500/70 px-2.5 py-1\n          shadow-[inset_0_1px_0_0_rgba(239,68,68,0.2),0_0_0_1px_rgba(239,68,68,0.15)]\n          hover:border-rose-400\n          hover:shadow-[inset_0_1px_0_0_rgba(239,68,68,0.3),0_0_8px_rgba(239,68,68,0.4)]\n          before:absolute before:inset-0 before:bg-[linear-gradient(90deg,transparent,rgba(239,68,68,0.15),transparent)]\n          before:-translate-x-full hover:before:translate-x-full before:duration-300\n          \n          data-[theme=light]:bg-[#1a0000]\n          data-[theme=light]:text-rose-300\n          data-[theme=light]:border-rose-500/70\n          data-[theme=light]:hover:bg-[#260000]\n          data-[theme=light]:hover:border-rose-400\n          data-[theme=light]:shadow-[inset_0_1px_0_0_rgba(239,68,68,0.2),0_0_0_1px_rgba(239,68,68,0.15)]\n        `\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nfunction Badge({\n  className,\n  variant,\n  asChild = false,\n  ...props\n}: React.ComponentProps<\"span\"> &\n  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {\n  const Comp = asChild ? Slot : \"span\"\n\n  return (\n    <Comp\n      data-slot=\"badge\"\n      className={cn(badgeVariants({ variant }), className)}\n      {...props}\n    />\n  )\n}\n\nexport { Badge, badgeVariants }",
       "type": "registry:ui",
       "target": "components/ui/badge.tsx"
+    },
+    {
+      "path": "lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
     }
   ],
   "tailwind": {

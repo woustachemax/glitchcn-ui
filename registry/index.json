@@ -18,6 +18,16 @@
       "files": ["glitchcn/utils.json"]
     },
     {
+      "name": "globals",
+      "type": "registry:style",
+      "files": ["glitchcn/globals.json"]
+    },
+    {
+      "name": "layout",
+      "type": "registry:app",
+      "files": ["glitchcn/layout.json"]
+    },
+    {
       "name": "alert",
       "type": "registry:ui",
       "files": ["glitchcn/alert.json"]

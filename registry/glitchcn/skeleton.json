@@ -3,13 +3,19 @@
   "type": "registry:ui",
   "dependencies": [],
   "devDependencies": [],
-  "registryDependencies": ["utils"],
+  "registryDependencies": [],
   "files": [
     {
       "path": "components/ui/skeleton.tsx",
       "content": "import { cn } from \"@/lib/utils\"\n\nfunction Skeleton({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"skeleton\"\n      className={cn(\n        \"animate-pulse rounded-md\",\n        \"bg-[#002626] border border-emerald-500/30\",\n        \"shadow-[inset_0_1px_0_0_rgba(6,182,212,0.1)]\",\n        \"dark:bg-[#002626] dark:border-emerald-500/30\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Skeleton }",
       "type": "registry:ui",
       "target": "components/ui/skeleton.tsx"
+    },
+    {
+      "path": "lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
     }
   ],
   "tailwind": {

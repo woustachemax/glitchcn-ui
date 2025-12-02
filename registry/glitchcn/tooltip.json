@@ -5,13 +5,19 @@
     "@radix-ui/react-tooltip"
   ],
   "devDependencies": [],
-  "registryDependencies": ["utils"],
+  "registryDependencies": [],
   "files": [
     {
       "path": "components/ui/tooltip.tsx",
       "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as TooltipPrimitive from \"@radix-ui/react-tooltip\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst TooltipProvider = TooltipPrimitive.Provider\n\nconst Tooltip = TooltipPrimitive.Root\n\nconst TooltipTrigger = TooltipPrimitive.Trigger\n\nconst TooltipContent = React.forwardRef<\n  React.ElementRef<typeof TooltipPrimitive.Content>,\n  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>\n>(({ className, sideOffset = 4, children, ...props }, ref) => (\n  <TooltipPrimitive.Portal>\n    <TooltipPrimitive.Content\n      ref={ref}\n      sideOffset={sideOffset}\n      className={cn(\n        \"z-50 origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs\",\n        \"bg-[#001a1a] text-emerald-300 border border-emerald-500/50\",\n        \"shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_8px_rgba(6,182,212,0.3)]\",\n        \"font-mono tracking-wide\",\n        \"animate-in fade-in-0 zoom-in-95\",\n        \"data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95\",\n        \"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2\",\n        \"data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\n        \"dark:bg-[#001a1a] dark:text-emerald-300 dark:border-emerald-500/50\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n    </TooltipPrimitive.Content>\n  </TooltipPrimitive.Portal>\n))\nTooltipContent.displayName = TooltipPrimitive.Content.displayName\n\nexport { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }",
       "type": "registry:ui",
       "target": "components/ui/tooltip.tsx"
+    },
+    {
+      "path": "lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
     }
   ],
   "tailwind": {

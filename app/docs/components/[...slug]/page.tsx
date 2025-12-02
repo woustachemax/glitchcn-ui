@@ -185,36 +185,42 @@ const docs: Record<string, {
 <Separator />
 <div>Section 2</div>`,
   },
-sheet: {
-  title: "Sheet",
-  description: "Slide-over panel component",
-  preview: (
- <Sheet>
-  <SheetTrigger>Open</SheetTrigger>
-  <SheetContent>
-    <SheetHeader>
-      <SheetTitle>Are you absolutely sure?</SheetTitle>
-      <SheetDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </SheetDescription>
-    </SheetHeader>
-  </SheetContent>
-</Sheet>
-
-  ),
-  code: `import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet"
+  sheet: {
+    title: "Sheet",
+    description: "Slide-over panel component",
+    preview: (
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button size="sm">
+            Open Sheet
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="right">
+          <SheetHeader>
+            <SheetTitle>Sheet panel</SheetTitle>
+            <SheetDescription>
+              This is the Glitchcn sheet. Put any content you want here.
+            </SheetDescription>
+          </SheetHeader>
+          <div className="mt-4 text-sm text-emerald-200 font-mono">
+            Sheet content goes here. It slides over the page from the right.
+          </div>
+        </SheetContent>
+      </Sheet>
+    ),
+    code: `import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 
 <Sheet>
-  <SheetTrigger>
-    <Button>Open Sheet</Button>
+  <SheetTrigger asChild>
+    <Button variant="outline" size="sm">
+      Open Sheet
+    </Button>
   </SheetTrigger>
   <SheetContent side="right">
     <SheetHeader>
       <SheetTitle>Panel Title</SheetTitle>
     </SheetHeader>
-    <p>This is the sheet content.</p>
   </SheetContent>
 </Sheet>`,
 },

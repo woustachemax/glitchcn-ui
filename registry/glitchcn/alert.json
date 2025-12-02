@@ -2,37 +2,28 @@
   "name": "alert",
   "type": "registry:ui",
   "dependencies": [
-    "class-variance-authority",
-    "lucide-react"
+    "class-variance-authority"
   ],
   "devDependencies": [],
-  "registryDependencies": ["utils"],
+  "registryDependencies": [],
   "files": [
     {
       "path": "components/ui/alert.tsx",
       "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@/lib/utils\"\n\nconst alertVariants = cva(\n  \"relative w-full [clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))] border px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current overflow-hidden transition-all duration-300 font-mono after:content-[''] after:absolute after:top-0 after:left-0 after:w-2 after:h-2 after:border-l-2 after:border-t-2 after:border-cyan-400/60 after:transition-all after:duration-300 after:pointer-events-none after:z-10 hover:after:w-3 hover:after:h-3 [&>*]:relative [&>*]:z-[1]\",\n  {\n    variants: {\n      variant: {\n        default: `\n          bg-[#001a1a] text-emerald-300 border-emerald-500/50\n          shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15)]\n          hover:border-emerald-400/70 hover:shadow-[inset_0_1px_0_0_rgba(6,182,212,0.3),0_0_8px_rgba(6,182,212,0.3)]\n          before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] before:bg-[length:100%_4px] before:[animation:scanline_8s_linear_infinite] before:pointer-events-none\n          \n          data-[theme=light]:bg-[#001a1a] data-[theme=light]:text-emerald-300 data-[theme=light]:border-emerald-500/50\n          data-[theme=light]:shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15)]\n        `,\n        destructive: `\n          bg-[#1a0000] text-rose-300 border-rose-500/50\n          shadow-[inset_0_1px_0_0_rgba(239,68,68,0.2),0_0_0_1px_rgba(239,68,68,0.15)]\n          hover:border-rose-400/70 hover:shadow-[inset_0_1px_0_0_rgba(239,68,68,0.3),0_0_8px_rgba(239,68,68,0.3)]\n          before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(239,68,68,0.03)_50%,transparent_100%)] before:bg-[length:100%_4px] before:[animation:scanline_8s_linear_infinite] before:pointer-events-none\n          [&>svg]:text-rose-400\n          *:data-[slot=alert-description]:text-rose-300/90\n          after:!border-rose-400/60\n          \n          data-[theme=light]:bg-[#1a0000] data-[theme=light]:text-rose-300 data-[theme=light]:border-rose-500/50\n          data-[theme=light]:shadow-[inset_0_1px_0_0_rgba(239,68,68,0.2),0_0_0_1px_rgba(239,68,68,0.15)]\n        `,\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nfunction Alert({\n  className,\n  variant,\n  ...props\n}: React.ComponentProps<\"div\"> & VariantProps<typeof alertVariants>) {\n  return (\n    <div\n      data-slot=\"alert\"\n      data-variant={variant}\n      role=\"alert\"\n      className={cn(alertVariants({ variant }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction AlertTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-title\"\n      className={cn(\n        \"col-start-2 line-clamp-1 min-h-4 font-bold tracking-wider uppercase text-xs\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction AlertDescription({\n  className,\n  ...props\n}: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-description\"\n      className={cn(\n        \"col-start-2 grid justify-items-start gap-1 text-xs tracking-wide [&_p]:leading-relaxed\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Alert, AlertTitle, AlertDescription }",
       "type": "registry:ui",
       "target": "components/ui/alert.tsx"
+    },
+    {
+      "path": "lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
     }
   ],
   "tailwind": {
     "config": {
       "theme": {
-        "extend": {
-          "keyframes": {
-            "scanline": {
-              "0%": {
-                "backgroundPosition": "0 0"
-              },
-              "100%": {
-                "backgroundPosition": "0 200%"
-              }
-            }
-          },
-          "animation": {
-            "scanline": "scanline 8s linear infinite"
-          }
-        }
+        "extend": {}
       }
     }
   }

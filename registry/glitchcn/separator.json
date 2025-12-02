@@ -2,17 +2,22 @@
   "name": "separator",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-separator",
-    "lucide-react"
+    "@radix-ui/react-separator"
   ],
   "devDependencies": [],
-  "registryDependencies": ["utils"],
+  "registryDependencies": [],
   "files": [
     {
       "path": "components/ui/separator.tsx",
       "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as SeparatorPrimitive from \"@radix-ui/react-separator\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Separator({\n  className,\n  orientation = \"horizontal\",\n  decorative = true,\n  ...props\n}: React.ComponentProps<typeof SeparatorPrimitive.Root>) {\n  return (\n    <SeparatorPrimitive.Root\n      data-slot=\"separator\"\n      decorative={decorative}\n      orientation={orientation}\n      className={cn(\n        \"shrink-0 relative\",\n        \"data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full\",\n        \"data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px\",\n        \"bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.5),transparent)]\",\n        \"data-[orientation=vertical]:bg-[linear-gradient(180deg,transparent,rgba(6,182,212,0.5),transparent)]\",\n        \"shadow-[0_0_4px_rgba(6,182,212,0.3)]\",\n        \"before:absolute before:inset-0\",\n        \"before:bg-emerald-500/30\",\n        \"data-[theme=light]:bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.5),transparent)]\",\n        \"data-[theme=light]:data-[orientation=vertical]:bg-[linear-gradient(180deg,transparent,rgba(6,182,212,0.5),transparent)]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Separator }",
       "type": "registry:ui",
       "target": "components/ui/separator.tsx"
+    },
+    {
+      "path": "lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
     }
   ],
   "tailwind": {

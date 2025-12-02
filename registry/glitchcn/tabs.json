@@ -2,15 +2,29 @@
   "name": "tabs",
   "type": "registry:ui",
   "dependencies": [
-    "react",
     "@radix-ui/react-tabs"
   ],
   "devDependencies": [],
-  "registryDependencies": ["utils"],
+  "registryDependencies": [],
   "files": [
     {
       "path": "components/ui/tabs.tsx",
-      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as TabsPrimitive from \"@radix-ui/react-tabs\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Tabs({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Root>) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"tabs\"\n      className={cn(\"flex flex-col gap-2\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction TabsList({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.List>) {\n  return (\n    <TabsPrimitive.List\n      data-slot=\"tabs-list\"\n      className={cn(\n        \"inline-flex h-9 w-fit items-center justify-center p-[3px] gap-1\",\n        \"bg-[#001a1a] border border-emerald-500/50 clip-corners-tabs relative overflow-hidden\",\n        \"shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15)]\",\n        \"before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] before:bg-size[:100%_4px] before:animate-scanline before:pointer-events-none before:z-0\",\n        \"data-[theme=light]:bg-[#001a1a] data-[theme=light]:border-emerald-500/50\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TabsTrigger({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {\n  return (\n    <TabsPrimitive.Trigger\n      data-slot=\"tabs-trigger\"\n      className={cn(\n        \"inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-300\",\n        \"font-mono uppercase tracking-wider\",\n        \"text-emerald-400/70 border border-transparent\",\n        \"hover:text-emerald-300 hover:bg-[#002626]/50\",\n        \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50\",\n        \"disabled:pointer-events-none disabled:opacity-50\",\n        \"data-[state=active]:bg-[#002626] data-[state=active]:text-emerald-300 data-[state=active]:border-emerald-500/50\",\n        \"data-[state=active]:shadow-[inset_0_0_16px_rgba(6,182,212,0.15),0_0_8px_rgba(6,182,212,0.2)]\",\n        \"data-[state=active]:clip-corners-trigger\",\n        \"relative z-10\",\n        \"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n        \"data-[theme=light]:text-emerald-400/70 data-[theme=light]:data-[state=active]:text-emerald-300\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TabsContent({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Content>) {\n  return (\n    <TabsPrimitive.Content\n      data-slot=\"tabs-content\"\n      className={cn(\n        \"flex-1 outline-none\",\n        \"font-mono text-emerald-200/90\",\n        \"data-[theme=light]:text-emerald-200/90\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent }"
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as TabsPrimitive from \"@radix-ui/react-tabs\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Tabs({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Root>) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"tabs\"\n      className={cn(\"flex flex-col gap-2\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction TabsList({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.List>) {\n  return (\n    <TabsPrimitive.List\n      data-slot=\"tabs-list\"\n      className={cn(\n        \"inline-flex h-9 w-fit items-center justify-center p-[3px] gap-1\",\n        \"bg-[#001a1a] border border-emerald-500/50 clip-corners-tabs relative overflow-hidden\",\n        \"shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15)]\",\n        \"before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] before:bg-size[:100%_4px] before:animate-scanline before:pointer-events-none before:z-0\",\n        \"data-[theme=light]:bg-[#001a1a] data-[theme=light]:border-emerald-500/50\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TabsTrigger({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {\n  return (\n    <TabsPrimitive.Trigger\n      data-slot=\"tabs-trigger\"\n      className={cn(\n        \"inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-300\",\n        \"font-mono uppercase tracking-wider\",\n        \"text-emerald-400/70 border border-transparent\",\n        \"hover:text-emerald-300 hover:bg-[#002626]/50\",\n        \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50\",\n        \"disabled:pointer-events-none disabled:opacity-50\",\n        \"data-[state=active]:bg-[#002626] data-[state=active]:text-emerald-300 data-[state=active]:border-emerald-500/50\",\n        \"data-[state=active]:shadow-[inset_0_0_16px_rgba(6,182,212,0.15),0_0_8px_rgba(6,182,212,0.2)]\",\n        \"data-[state=active]:clip-corners-trigger\",\n        \"relative z-10\",\n        \"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n        \"data-[theme=light]:text-emerald-400/70 data-[theme=light]:data-[state=active]:text-emerald-300\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TabsContent({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Content>) {\n  return (\n    <TabsPrimitive.Content\n      data-slot=\"tabs-content\"\n      className={cn(\n        \"flex-1 outline-none\",\n        \"font-mono text-emerald-200/90\",\n        \"data-[theme=light]:text-emerald-200/90\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent }",
+      "type": "registry:ui",
+      "target": "components/ui/tabs.tsx"
+    },
+    {
+      "path": "lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
     }
-  ]
+  ],
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {}
+      }
+    }
+  }
 }

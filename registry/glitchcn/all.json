@@ -1,10 +1,34 @@
 {
   "name": "all",
   "type": "registry:ui",
+  "dependencies": [],
+  "devDependencies": [],
   "registryDependencies": [
-    "alert", "badge", "button", "card", "command", "dialog",
-    "input", "progress", "separator", "sheet", "sidebar",
-    "skeleton", "table", "tabs", "tooltip", "utils"
+    "@glitchcn/globals",
+    "@glitchcn/alert",
+    "@glitchcn/badge",
+    "@glitchcn/button",
+    "@glitchcn/card",
+    "@glitchcn/command",
+    "@glitchcn/dialog",
+    "@glitchcn/input",
+    "@glitchcn/progress",
+    "@glitchcn/separator",
+    "@glitchcn/sheet",
+    "@glitchcn/sidebar",
+    "@glitchcn/skeleton",
+    "@glitchcn/table",
+    "@glitchcn/tabs",
+    "@glitchcn/tooltip"
   ],
-  "files": []
+  "files": [],
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {}
+      }
+    }
+  }
 }
+
+
