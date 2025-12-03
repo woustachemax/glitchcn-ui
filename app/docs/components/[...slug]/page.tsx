@@ -11,6 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Terminal, Info, Copy, Check, AlertTriangle } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogClose, DialogHeader, DialogTitle, DialogOverlay, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Sheet, SheetHeader, SheetDescription, SheetFooter, SheetTrigger, SheetTitle, SheetContent, SheetClose } from "@/components/ui/sheet";
 const docs: Record<string, { 
@@ -118,11 +119,22 @@ const docs: Record<string, {
   dialog: {
     title: "Dialog",
     description: "Modal dialog component",
-    preview: (
-      <div className="text-emerald-300/70 text-sm font-mono">
-        Dialog component for modals and popups
-      </div>
-    ),
+   preview: (
+    <Dialog>
+    <DialogTrigger asChild>
+      <Button size="sm">Open Dialog</Button>
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Test Dialog</DialogTitle>
+        <DialogDescription>
+          This is a live preview inside the docs page.
+        </DialogDescription>
+      </DialogHeader>
+    </DialogContent>
+  </Dialog>
+),
+
     code: `import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 <Dialog>

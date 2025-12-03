@@ -85,85 +85,87 @@ export default function DocsLayout({
   };
 
   return (
-    <SidebarProvider defaultOpen={true} className="bg-black overflow-x-hidden">
-      <Sidebar variant="inset" collapsible="icon" className="overflow-x-hidden">
-        <SidebarHeader>
-          <Link href="/" className="flex items-center gap-2 group px-2">
-            <Terminal className="text-cyan-400" size={24} />
-            <span className="font-mono text-xl font-bold text-emerald-300 group-data-[collapsible=icon]:hidden">
-              Glitchcn
-            </span>
-          </Link>
-        </SidebarHeader>
-        
-        <SidebarContent className="overflow-x-hidden">
-          <SidebarGroup>
-            <SidebarGroupContent>
-              <button
-                onClick={() => setSearchOpen(true)}
-                className="flex items-center gap-2 w-full px-2 py-2 text-sm font-mono text-emerald-300/70 hover:text-emerald-300 hover:bg-emerald-500/10 rounded transition-colors"
-              >
-                <Search className="h-4 w-4" />
-                <span>Search...</span>
-                <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-emerald-500/30 bg-emerald-500/10 px-1.5 font-mono text-xs font-medium text-emerald-300/70">
-                  <span className="text-xs">⌘</span>K
-                </kbd>
-              </button>
-            </SidebarGroupContent>
-          </SidebarGroup>
+    <>
+      <SidebarProvider defaultOpen={true} className="bg-black overflow-x-hidden">
+        <Sidebar variant="inset" collapsible="icon" className="overflow-x-hidden">
+          <SidebarHeader>
+            <Link href="/" className="flex items-center gap-2 group px-2">
+              <Terminal className="text-cyan-400" size={24} />
+              <span className="font-mono text-xl font-bold text-emerald-300 group-data-[collapsible=icon]:hidden">
+                Glitchcn
+              </span>
+            </Link>
+          </SidebarHeader>
+          
+          <SidebarContent className="overflow-x-hidden">
+            <SidebarGroup>
+              <SidebarGroupContent>
+                <button
+                  onClick={() => setSearchOpen(true)}
+                  className="flex items-center gap-2 w-full px-2 py-2 text-sm font-mono text-emerald-300/70 hover:text-emerald-300 hover:bg-emerald-500/10 rounded transition-colors"
+                >
+                  <Search className="h-4 w-4" />
+                  <span>Search...</span>
+                  <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-emerald-500/30 bg-emerald-500/10 px-1.5 font-mono text-xs font-medium text-emerald-300/70">
+                    <span className="text-xs">⌘</span>K
+                  </kbd>
+                </button>
+              </SidebarGroupContent>
+            </SidebarGroup>
 
-          <SidebarSeparator />
+            <SidebarSeparator />
 
-          <SidebarGroup>
-            <SidebarGroupLabel>Documentation</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link href="/docs">
-                      <BookOpen className="h-4 w-4" />
-                      <span>Getting Started</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link href="/docs/components">
-                      <Package className="h-4 w-4" />
-                      <span>Components</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-
-          <SidebarSeparator />
-
-          <SidebarGroup>
-            <SidebarGroupLabel>Components</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {components.map((comp) => (
-                  <SidebarMenuItem key={comp}>
+            <SidebarGroup>
+              <SidebarGroupLabel>Documentation</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <Link href={`/docs/components/${comp}`}>
-                        <span className="capitalize">{comp}</span>
+                      <Link href="/docs">
+                        <BookOpen className="h-4 w-4" />
+                        <span>Getting Started</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-      </Sidebar>
-      
-      <SidebarInset className="bg-black">
-        <main className="flex-1 p-8 overflow-x-hidden">
-          {children}
-        </main>
-      </SidebarInset>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/docs/components">
+                        <Package className="h-4 w-4" />
+                        <span>Components</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+
+            <SidebarSeparator />
+
+            <SidebarGroup>
+              <SidebarGroupLabel>Components</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {components.map((comp) => (
+                    <SidebarMenuItem key={comp}>
+                      <SidebarMenuButton asChild>
+                        <Link href={`/docs/components/${comp}`}>
+                          <span className="capitalize">{comp}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+        </Sidebar>
+        
+        <SidebarInset className="bg-black">
+          <main className="flex-1 p-8 overflow-x-hidden">
+            {children}
+          </main>
+        </SidebarInset>
+      </SidebarProvider>
 
       <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
         <DialogContent className="max-w-2xl p-0 gap-0 bg-[#001a1a] border-emerald-500/50">
@@ -207,6 +209,6 @@ export default function DocsLayout({
           </div>
         </DialogContent>
       </Dialog>
-    </SidebarProvider>
+    </>
   );
 }
