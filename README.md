@@ -1,7 +1,5 @@
 # 🌐 GlitchCN Component Library
 
-![GlitchCN Banner](https://via.placeholder.com/1200x300/001a1a/00ff88?text=GlitchCN+UI)
-
 **A retro-futuristic React component library for Next.js applications, bringing terminal-styled aesthetics to modern web development.**
 
 [![Live Demo](https://img.shields.io/badge/demo-live-00ff88?style=for-the-badge)](https://glitchcn-ui.vercel.app/)
