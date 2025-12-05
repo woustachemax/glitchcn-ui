@@ -14,6 +14,7 @@ import { Terminal, Info, Copy, Check, AlertTriangle } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogClose, DialogHeader, DialogTitle, DialogOverlay, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Sheet, SheetHeader, SheetDescription, SheetFooter, SheetTrigger, SheetTitle, SheetContent, SheetClose } from "@/components/ui/sheet";
+
 const docs: Record<string, { 
   title: string; 
   description: string; 
@@ -75,7 +76,7 @@ const docs: Record<string, {
     title: "Card",
     description: "Container for grouping related content",
     preview: (
-      <Card className="max-w-md">
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>System Status</CardTitle>
           <CardDescription>All systems operational</CardDescription>
@@ -101,7 +102,7 @@ const docs: Record<string, {
     title: "Command",
     description: "Command palette for keyboard navigation",
     preview: (
-      <div className="text-emerald-300/70 text-sm font-mono">
+      <div className="text-emerald-300/70 text-sm font-mono wrap-break-word">
         Press Cmd+K to open command palette
       </div>
     ),
@@ -153,7 +154,7 @@ const docs: Record<string, {
     title: "Input",
     description: "Text input field",
     preview: (
-      <div className="max-w-md space-y-4">
+      <div className="w-full space-y-4">
         <Input placeholder="Enter text..." />
         <Input type="email" placeholder="Email address" />
         <Input disabled placeholder="Disabled input" />
@@ -169,7 +170,7 @@ const docs: Record<string, {
     title: "Progress",
     description: "Progress indicator",
     preview: (
-      <div className="max-w-md space-y-4">
+      <div className="w-full space-y-4">
         <Progress value={33} />
         <Progress value={66} />
         <Progress value={100} />
@@ -240,7 +241,7 @@ import { Button } from "@/components/ui/button"
     title: "Sidebar",
     description: "Navigation sidebar component",
     preview: (
-      <div className="text-emerald-300/70 text-sm font-mono">
+      <div className="text-emerald-300/70 text-sm font-mono wrap-break-word">
         Collapsible sidebar navigation (see the sidebar on the left)
       </div>
     ),
@@ -258,7 +259,7 @@ import { Button } from "@/components/ui/button"
     title: "Skeleton",
     description: "Loading placeholder component",
     preview: (
-      <div className="space-y-4 max-w-md">
+      <div className="space-y-4 w-full">
         <Skeleton className="h-12 w-full" />
         <Skeleton className="h-12 w-3/4" />
         <Skeleton className="h-12 w-1/2" />
@@ -272,58 +273,59 @@ import { Button } from "@/components/ui/button"
   table: {
     title: "Table",
     description: "Data table component",
-preview: (
-  <div className="relative w-full h-80 flex items-center justify-center p-4">
-    <div
-      className="relative w-full h-full bg-[#001a1a] text-emerald-300 border border-emerald-500/50 clip-corners-table overflow-hidden group 
-      shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15),0_4px_24px_rgba(0,0,0,0.4)]"
-    >
-      <div
-        className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] 
-        bg-position[100%_4px] animate-scanline pointer-events-none z-0"
-      />
+    preview: (
+      <div className="relative w-full h-80 flex items-center justify-center p-2 sm:p-4">
+        <div
+          className="relative w-full h-full bg-[#001a1a] text-emerald-300 border border-emerald-500/50 clip-corners-table overflow-auto group 
+          shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15),0_4px_24px_rgba(0,0,0,0.4)]"
+        >
+          <div
+            className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] 
+            bg-position[100%_4px] animate-scanline pointer-events-none z-0"
+          />
 
-      <table className="w-full caption-bottom text-sm font-mono relative z-10">
-        <thead className="[&_tr]:border-b [&_tr]:border-emerald-500/30">
-          <tr>
-            <th className="h-10 px-4 text-left align-middle font-bold uppercase tracking-wider text-xs group-hover:text-shadow-glow">
-              ID
-            </th>
-            <th className="h-10 px-4 text-left align-middle font-bold uppercase tracking-wider text-xs">
-              Status
-            </th>
-            <th className="h-10 px-4 text-left align-middle font-bold uppercase tracking-wider text-xs">
-              Task
-            </th>
-          </tr>
-        </thead>
-        <tbody className="[&_tr:last-child]:border-0">
-          <tr className="border-b border-emerald-500/30 hover:bg-[#002626]">
-            <td className="p-3 align-middle text-emerald-200/90">0x001A</td>
-            <td className="p-3 align-middle text-red-400">
-              <span className="text-shadow-glow-red">ERROR</span>
-            </td>
-            <td className="p-3 align-middle text-emerald-200/90">
-              Initialize Subsystem
-            </td>
-          </tr>
-          <tr
-            className="border-b border-emerald-500/30 hover:bg-[#002626] data-[state=selected]:bg-[#002626]"
-            data-state="selected"
-          >
-            <td className="p-3 align-middle text-emerald-200/90">0x002B</td>
-            <td className="p-3 align-middle text-cyan-400/90 font-bold">
-              RUNNING
-            </td>
-            <td className="p-3 align-middle text-emerald-200/90">
-              Data Fetch Cycle
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-),    code: `import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
+          <table className="w-full caption-bottom text-sm font-mono relative z-10 min-w-[400px]">
+            <thead className="[&_tr]:border-b [&_tr]:border-emerald-500/30">
+              <tr>
+                <th className="h-10 px-2 sm:px-4 text-left align-middle font-bold uppercase tracking-wider text-xs group-hover:text-shadow-glow">
+                  ID
+                </th>
+                <th className="h-10 px-2 sm:px-4 text-left align-middle font-bold uppercase tracking-wider text-xs">
+                  Status
+                </th>
+                <th className="h-10 px-2 sm:px-4 text-left align-middle font-bold uppercase tracking-wider text-xs">
+                  Task
+                </th>
+              </tr>
+            </thead>
+            <tbody className="[&_tr:last-child]:border-0">
+              <tr className="border-b border-emerald-500/30 hover:bg-[#002626]">
+                <td className="p-2 sm:p-3 align-middle text-emerald-200/90">0x001A</td>
+                <td className="p-2 sm:p-3 align-middle text-red-400">
+                  <span className="text-shadow-glow-red">ERROR</span>
+                </td>
+                <td className="p-2 sm:p-3 align-middle text-emerald-200/90">
+                  Initialize Subsystem
+                </td>
+              </tr>
+              <tr
+                className="border-b border-emerald-500/30 hover:bg-[#002626] data-[state=selected]:bg-[#002626]"
+                data-state="selected"
+              >
+                <td className="p-2 sm:p-3 align-middle text-emerald-200/90">0x002B</td>
+                <td className="p-2 sm:p-3 align-middle text-cyan-400/90 font-bold">
+                  RUNNING
+                </td>
+                <td className="p-2 sm:p-3 align-middle text-emerald-200/90">
+                  Data Fetch Cycle
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ),
+    code: `import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 
 <Table>
   <TableBody>
@@ -337,40 +339,40 @@ preview: (
   tabs: {
     title: "Tabs",
     description: "Tabbed content container",
-   preview: (
-  <div className="relative w-full h-32 flex items-start justify-center p-4">
-    <div
-      data-slot="tabs-list"
-      className="inline-flex h-9 w-fit items-center justify-center p-[3px] gap-1
-      bg-[#001a1a] border border-emerald-500/50 clip-corners-tabs relative overflow-hidden"
-    >
-      <div
-        data-slot="tabs-trigger"
-        className="inline-flex h-[calc(100%-1px)] items-center px-3 py-1 text-sm font-medium transition-all duration-300
-        font-mono uppercase tracking-wider text-emerald-400/70 hover:text-emerald-300 hover:bg-[#002626]/50"
-      >
-        Tab One
+    preview: (
+      <div className="relative w-full h-32 flex items-start justify-center p-2 sm:p-4 overflow-x-auto">
+        <div
+          data-slot="tabs-list"
+          className="inline-flex h-9 min-w-fit items-center justify-center p-[3px] gap-1
+          bg-[#001a1a] border border-emerald-500/50 clip-corners-tabs relative overflow-hidden"
+        >
+          <div
+            data-slot="tabs-trigger"
+            className="inline-flex h-[calc(100%-1px)] items-center px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium transition-all duration-300
+            font-mono uppercase tracking-wider text-emerald-400/70 hover:text-emerald-300 hover:bg-[#002626]/50 whitespace-nowrap"
+          >
+            Tab One
+          </div>
+          <div
+            data-slot="tabs-trigger"
+            data-state="active"
+            className="inline-flex h-[calc(100%-1px)] items-center px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium transition-all duration-300
+            font-mono uppercase tracking-wider text-emerald-300 bg-[#002626] border-emerald-500/50 clip-corners-trigger
+            shadow-[inset_0_0_16px_rgba(6,182,212,0.15),0_0_8px_rgba(6,182,212,0.2)] whitespace-nowrap"
+          >
+            Active
+          </div>
+          <div
+            data-slot="tabs-trigger"
+            data-state="active"
+            className="inline-flex h-[calc(100%-1px)] items-center px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium transition-all duration-300
+            font-mono uppercase tracking-wider text-emerald-400/70 hover:text-emerald-300 hover:bg-[#002626]/50 whitespace-nowrap"
+          >
+            Info
+          </div>
+        </div>
       </div>
-      <div
-        data-slot="tabs-trigger"
-        data-state="active"
-        className="inline-flex h-[calc(100%-1px)] items-center px-3 py-1 text-sm font-medium transition-all duration-300
-        font-mono uppercase tracking-wider text-emerald-300 bg-[#002626] border-emerald-500/50 clip-corners-trigger
-        shadow-[inset_0_0_16px_rgba(6,182,212,0.15),0_0_8px_rgba(6,182,212,0.2)]"
-      >
-        Active
-      </div>
-      <div
-        data-slot="tabs-trigger"
-        data-state="active"
-        className="inline-flex h-[calc(100%-1px)] items-center px-3 py-1 text-sm font-medium transition-all duration-300
-        font-mono uppercase tracking-wider text-emerald-400/70 hover:text-emerald-300 hover:bg-[#002626]/50"
-      >
-        Info
-      </div>
-    </div>
-  </div>
-),
+    ),
     code: `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 <Tabs defaultValue="tab1">
@@ -386,7 +388,7 @@ preview: (
     title: "Tooltip",
     description: "Contextual information on hover",
     preview: (
-      <div className="text-emerald-300/70 text-sm font-mono">
+      <div className="text-emerald-300/70 text-sm font-mono wrap-break-word">
         Tooltip on hover
       </div>
     ),
@@ -413,12 +415,13 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={copy}
-      className="absolute top-4 right-4 p-1.5 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors z-10"
+      className="absolute top-2 right-2 sm:top-4 sm:right-4 p-1.5 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors z-10"
+      aria-label="Copy code"
     >
       {copied ? (
-        <Check className="h-4 w-4 text-emerald-400" />
+        <Check className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" />
       ) : (
-        <Copy className="h-4 w-4 text-emerald-400" />
+        <Copy className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" />
       )}
     </button>
   );
@@ -438,19 +441,19 @@ export default function ComponentPage({
   }
 
   return (
-    <div className="max-w-4xl space-y-8">
+    <div className="w-full max-w-4xl space-y-6 sm:space-y-8 px-4 sm:px-6 py-4 sm:py-6">
       <div>
-        <h1 className="text-4xl font-bold font-mono text-emerald-300 mb-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono text-emerald-300 mb-2 wrap-break-word">
           {doc.title}
         </h1>
-        <p className="text-emerald-300/70 font-mono">{doc.description}</p>
+        <p className="text-sm sm:text-base text-emerald-300/70 font-mono wrap-break-word">{doc.description}</p>
       </div>
 
       {doc.dependencies && doc.dependencies.length > 0 && (
         <Alert variant="default" className="border-amber-500/30 bg-amber-500/5">
-          <AlertTriangle className="h-4 w-4 text-amber-400" />
-          <AlertTitle className="text-amber-300">Additional Components Required</AlertTitle>
-          <AlertDescription className="text-amber-300/70">
+          <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0" />
+          <AlertTitle className="text-amber-300 text-sm sm:text-base">Additional Components Required</AlertTitle>
+          <AlertDescription className="text-amber-300/70 text-xs sm:text-sm wrap-break-word">
             This component will also install: {doc.dependencies.join(", ")}
           </AlertDescription>
         </Alert>
@@ -458,22 +461,22 @@ export default function ComponentPage({
 
       <Card>
         <CardHeader>
-          <CardTitle>Preview</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Preview</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-x-auto">
           {doc.preview}
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Installation</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Installation</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="relative">
             <CopyButton text={`npx shadcn@latest add @glitchcn/${componentName}`} />
-            <pre className="bg-black/60 p-4 pr-12 rounded border border-emerald-500/20">
-              <code className="text-emerald-300 font-mono text-sm">
+            <pre className="bg-black/60 p-3 pr-10 sm:p-4 sm:pr-12 rounded border border-emerald-500/20 overflow-x-auto">
+              <code className="text-emerald-300 font-mono text-xs sm:text-sm break-all">
                 npx shadcn@latest add @glitchcn/{componentName}
               </code>
             </pre>
@@ -483,13 +486,13 @@ export default function ComponentPage({
 
       <Card>
         <CardHeader>
-          <CardTitle>Usage</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Usage</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="relative">
             <CopyButton text={doc.code} />
-            <pre className="bg-black/60 p-4 pr-12 rounded border border-emerald-500/20">
-              <code className="text-emerald-300 font-mono text-sm whitespace-pre-wrap wrap-break-words">
+            <pre className="bg-black/60 p-3 pr-10 sm:p-4 sm:pr-12 rounded border border-emerald-500/20 overflow-x-auto">
+              <code className="text-emerald-300 font-mono text-xs sm:text-sm whitespace-pre-wrap wrap-break-word">
                 {doc.code}
               </code>
             </pre>
