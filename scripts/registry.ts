@@ -6,6 +6,7 @@ const registryDir = path.join(process.cwd(), 'registry', 'glitchcn');
 const libDir = path.join(process.cwd(), 'lib');
 
 const componentDeps: Record<string, string[]> = {
+  accordion: ['@radix-ui/react-accordion'],
   alert: ['class-variance-authority'],
   badge: ['class-variance-authority'],
   button: ['@radix-ui/react-slot', 'class-variance-authority'],
