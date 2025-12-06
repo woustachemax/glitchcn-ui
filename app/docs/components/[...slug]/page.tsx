@@ -14,6 +14,7 @@ import { Terminal, Info, Copy, Check, AlertTriangle } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogClose, DialogHeader, DialogTitle, DialogOverlay, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Sheet, SheetHeader, SheetDescription, SheetFooter, SheetTrigger, SheetTitle, SheetContent, SheetClose } from "@/components/ui/sheet";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const docs: Record<string, { 
   title: string; 
@@ -22,6 +23,54 @@ const docs: Record<string, {
   code: string;
   dependencies?: string[];
 }> = {
+  accordion: {
+  title: "Accordion",
+  description: "Collapsible content sections for organizing information",
+  preview: (
+    <Accordion type="single" collapsible className="w-full">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>System Configuration</AccordionTrigger>
+        <AccordionContent>
+          Network protocols initialized. Security parameters verified.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Data Processing</AccordionTrigger>
+        <AccordionContent>
+          All data streams operating within normal parameters.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger>Security Status</AccordionTrigger>
+        <AccordionContent>
+          Encryption active. Firewall enabled. No threats detected.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  ),
+  code: `import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="item-1">
+    <AccordionTrigger>System Configuration</AccordionTrigger>
+    <AccordionContent>
+      Network protocols initialized.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>Data Processing</AccordionTrigger>
+    <AccordionContent>
+      All data streams operating within normal parameters.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-3">
+    <AccordionTrigger>Security Status</AccordionTrigger>
+    <AccordionContent>
+      Encryption active. No threats detected.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>`,
+},
   alert: {
     title: "Alert",
     description: "Display important messages and notifications",

@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 
 const components = [
+  "accordion",
   "alert",
   "badge", 
   "button",

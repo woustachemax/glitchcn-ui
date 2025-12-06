@@ -28,6 +28,11 @@
       "files": ["glitchcn/layout.json"]
     },
     {
+      "name": "accordion",
+      "type": "registry:ui",
+      "files": ["glitchcn/accordion.json"]
+    },
+    {
       "name": "alert",
       "type": "registry:ui",
       "files": ["glitchcn/alert.json"]

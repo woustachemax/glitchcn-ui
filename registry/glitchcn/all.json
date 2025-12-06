@@ -5,6 +5,7 @@
   "devDependencies": [],
   "registryDependencies": [
     "@glitchcn/globals",
+    "@glitchcn/accordion",
     "@glitchcn/alert",
     "@glitchcn/badge",
     "@glitchcn/button",
