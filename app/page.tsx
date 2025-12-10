@@ -39,7 +39,7 @@ export default function Home() {
             <Button size="sm" className="hidden sm:inline-flex" asChild onClick={()=>router.push('/docs')}>
               Docs
             </Button>
-            <Button size="sm" className="hidden sm:inline-flex" asChild onClick={()=>router.push('/docs/components')}>
+            <Button size="sm" className="" asChild onClick={()=>router.push('/docs/components')}>
               Components
             </Button>
             <Button size="sm" onClick={() => window.open("https://github.com/woustachemax/glitchcn-ui", "_blank")}>
