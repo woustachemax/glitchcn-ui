@@ -1,0 +1,32 @@
+{
+  "name": "spinner",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge",
+    "lucide-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/ui/spinner.tsx",
+      "content": "import * as React from \"react\"\nimport { Loader2Icon } from \"lucide-react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@/lib/utils\"\n\nconst spinnerVariants = cva(\n  \"animate-spin\",\n  {\n    variants: {\n      size: {\n        sm: \"size-3\",\n        default: \"size-4\",\n        lg: \"size-6\",\n        xl: \"size-8\",\n      },\n      variant: {\n        default: cn(\n          \"text-emerald-400/70\",\n          \"drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]\",\n          \"data-[theme=light]:text-emerald-500\"\n        ),\n        destructive: cn(\n          \"text-rose-400/70\",\n          \"drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]\",\n          \"data-[theme=light]:text-rose-500\"\n        ),\n      }\n    },\n    defaultVariants: {\n      size: \"default\",\n      variant: \"default\"\n    }\n  }\n)\n\nfunction Spinner({\n  className,\n  size,\n  variant,\n  ...props\n}: React.ComponentProps<\"svg\"> & VariantProps<typeof spinnerVariants>) {\n  return (\n    <Loader2Icon\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(spinnerVariants({ size, variant }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction LoadingOverlay({\n  className,\n  children,\n  size = \"default\",\n  variant = \"default\",\n  text,\n  ...props\n}: React.ComponentPropsWithoutRef<\"div\"> &\n  VariantProps<typeof spinnerVariants> & {\n    text?: string\n  }) {\n  return (\n    <div\n      data-slot=\"loading-overlay\"\n      className={cn(\n        \"absolute inset-0 z-50 flex flex-col items-center justify-center gap-4\",\n        \"bg-[#001a1a]/95 backdrop-blur-sm\",\n        \"data-[theme=light]:bg-white/95\",\n        \"border border-emerald-500/30\",\n        \"[clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))]\",\n        \"before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.05)_50%,transparent_100%)]\",\n        \"before:bg-size[100%_4px] before:pointer-events-none\",\n        className\n      )}\n      {...props}\n    >\n      <Spinner size={size} variant={variant} />\n      {(text || children) && (\n        <div className=\"font-mono text-sm tracking-wider uppercase text-emerald-300/90 data-[theme=light]:text-emerald-700\">\n          {text || children}\n        </div>\n      )}\n    </div>\n  )\n}\n\nexport { Spinner, LoadingOverlay, spinnerVariants }",
+      "type": "registry:ui",
+      "target": "components/ui/spinner.tsx"
+    },
+    {
+      "path": "lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ],
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {}
+      }
+    }
+  }
+}

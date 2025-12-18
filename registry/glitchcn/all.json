@@ -18,6 +18,7 @@
     "@glitchcn/sheet",
     "@glitchcn/sidebar",
     "@glitchcn/skeleton",
+    "@glitchcn/spinner",
     "@glitchcn/table",
     "@glitchcn/tabs",
     "@glitchcn/tooltip"

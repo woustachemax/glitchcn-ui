@@ -19,6 +19,7 @@ const componentDeps: Record<string, string[]> = {
   sheet: ['@radix-ui/react-dialog', 'class-variance-authority'],
   sidebar: ['@radix-ui/react-separator', '@radix-ui/react-slot'],
   skeleton: [],
+  spinner: ['class-variance-authority', 'lucide-react'],
   table: [],
   tabs: ['@radix-ui/react-tabs'],
   tooltip: ['@radix-ui/react-tooltip'],

@@ -93,6 +93,11 @@
       "files": ["glitchcn/skeleton.json"]
     },
     {
+      "name": "spinner",
+      "type": "registry:ui",
+      "files": ["glitchcn/spinner.json"]
+    },
+    {
       "name": "table",
       "type": "registry:ui",
       "files": ["glitchcn/table.json"]
