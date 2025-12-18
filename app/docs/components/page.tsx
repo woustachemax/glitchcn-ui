@@ -32,7 +32,7 @@ export default function ComponentsListPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {components.map((comp) => (
-          <Card key={comp} className="group hover:border-cyan-400/50 transition-colors">
+          <Card key={comp} className="group  transition-colors">
             <CardContent className="p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <Link
