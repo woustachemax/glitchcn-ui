@@ -40,6 +40,7 @@ const components = [
   "sheet",
   "sidebar",
   "skeleton",
+  "spinner",
   "table",
   "tabs",
   "tooltip"

@@ -15,6 +15,8 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogClose, Di
 import { useState } from "react";
 import { Sheet, SheetHeader, SheetDescription, SheetFooter, SheetTrigger, SheetTitle, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Spinner, LoadingOverlay } from "@/components/ui/spinner";
+
 
 const docs: Record<string, { 
   title: string; 
@@ -384,6 +386,82 @@ import { Button } from "@/components/ui/button"
     </TableRow>
   </TableBody>
 </Table>`,
+  },
+  spinner: {
+    title: "Spinner",
+    description: "Loading spinner with multiple sizes and variants",
+    preview: (
+      <div className="space-y-8 w-full">
+        <div>
+          <p className="text-emerald-300/70 font-mono text-sm mb-4">Sizes</p>
+          <div className="flex gap-6 items-center flex-wrap">
+            <div className="flex flex-col items-center gap-2">
+              <Spinner size="sm" />
+              <span className="text-xs text-emerald-300/50 font-mono">Small</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Spinner />
+              <span className="text-xs text-emerald-300/50 font-mono">Default</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Spinner size="lg" />
+              <span className="text-xs text-emerald-300/50 font-mono">Large</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Spinner size="xl" />
+              <span className="text-xs text-emerald-300/50 font-mono">XL</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p className="text-emerald-300/70 font-mono text-sm mb-4">Variants</p>
+          <div className="flex gap-6 items-center flex-wrap">
+            <div className="flex flex-col items-center gap-2">
+              <Spinner variant="default" size="lg" />
+              <span className="text-xs text-emerald-300/50 font-mono">Default</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Spinner variant="destructive" size="lg" />
+              <span className="text-xs text-emerald-300/50 font-mono">Destructive</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p className="text-emerald-300/70 font-mono text-sm mb-4">Loading Overlay</p>
+          <div className="relative h-48 bg-[#001a1a] border border-emerald-500/30 [clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))]">
+            <LoadingOverlay text="Loading data..." />
+          </div>
+        </div>
+      </div>
+    ),
+    code: `import { Spinner, LoadingOverlay } from "@/components/ui/spinner"
+
+// Basic spinner
+<Spinner />
+
+// Different sizes
+<Spinner size="sm" />
+<Spinner size="lg" />
+<Spinner size="xl" />
+
+// Variants
+<Spinner variant="default" />
+<Spinner variant="destructive" />
+
+// Loading overlay
+<div className="relative">
+  <LoadingOverlay text="Loading data..." />
+  {/* Your content */}
+</div>
+
+// Loading overlay with custom variant and size
+<LoadingOverlay 
+  text="Processing..." 
+  variant="destructive" 
+  size="xl"
+/>`,
   },
   tabs: {
     title: "Tabs",
