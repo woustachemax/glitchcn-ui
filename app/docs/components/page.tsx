@@ -9,7 +9,7 @@ import { useState } from "react";
 const components = [
   "accordion", "alert", "badge", "button", "card", "command", "dialog",
   "input", "progress", "separator", "sheet", "sidebar",
-  "skeleton", "table", "tabs", "tooltip"
+  "skeleton","spinner", "table", "tabs", "tooltip"
 ];
 
 export default function ComponentsListPage() {
