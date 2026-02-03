@@ -36,6 +36,7 @@ const components = [
   "command",
   "dialog",
   "input",
+  "input-otp",
   "progress",
   "separator",
   "sheet",

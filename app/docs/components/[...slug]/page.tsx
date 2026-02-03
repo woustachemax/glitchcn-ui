@@ -17,6 +17,7 @@ import { Sheet, SheetHeader, SheetDescription, SheetFooter, SheetTrigger, SheetT
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Spinner, LoadingOverlay } from "@/components/ui/spinner";
 import { Checkbox } from "@/components/ui/checkbox";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 
 const docs: Record<string, { 
@@ -250,6 +251,53 @@ const docs: Record<string, {
 <Input placeholder="Enter text..." />
 <Input type="email" placeholder="Email address" />
 <Input disabled placeholder="Disabled" />`,
+  },
+  "input-otp": {
+    title: "Input OTP",
+    description: "One-time password input with emerald/dark aesthetic",
+    preview: (
+      <div className="w-full space-y-6 overflow-hidden scrollbar-hide">
+        <div>
+          <p className="text-emerald-300/70 font-mono text-sm mb-3">6-Digit OTP</p>
+          <InputOTP maxLength={6}>
+            <InputOTPGroup>
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <InputOTPSlot key={i} index={i} />
+              ))}
+            </InputOTPGroup>
+          </InputOTP>
+        </div>
+        <div>
+          <p className="text-emerald-300/70 font-mono text-sm mb-3">4-Digit PIN</p>
+          <InputOTP maxLength={4}>
+            <InputOTPGroup>
+              {[0, 1, 2, 3].map((i) => (
+                <InputOTPSlot key={i} index={i} />
+              ))}
+            </InputOTPGroup>
+          </InputOTP>
+        </div>
+      </div>
+    ),
+    code: `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
+
+// 6-digit OTP
+<InputOTP maxLength={6}>
+  <InputOTPGroup>
+    {[0, 1, 2, 3, 4, 5].map((i) => (
+      <InputOTPSlot key={i} index={i} />
+    ))}
+  </InputOTPGroup>
+</InputOTP>
+
+// 4-digit PIN
+<InputOTP maxLength={4}>
+  <InputOTPGroup>
+    {[0, 1, 2, 3].map((i) => (
+      <InputOTPSlot key={i} index={i} />
+    ))}
+  </InputOTPGroup>
+</InputOTP>`,
   },
   progress: {
     title: "Progress",

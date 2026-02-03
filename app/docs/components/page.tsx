@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 
 const components = [
-  "accordion", "alert", "badge", "button", "card", "command", "dialog",
+  "accordion", "alert", "badge", "button", "card", "checkbox", "command", "dialog", "input-otp",
   "input", "progress", "separator", "sheet", "sidebar",
   "skeleton","spinner", "table", "tabs", "tooltip"
 ];
