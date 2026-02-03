@@ -16,6 +16,7 @@ import { useState } from "react";
 import { Sheet, SheetHeader, SheetDescription, SheetFooter, SheetTrigger, SheetTitle, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Spinner, LoadingOverlay } from "@/components/ui/spinner";
+import { Checkbox } from "@/components/ui/checkbox";
 
 
 const docs: Record<string, { 
@@ -108,6 +109,39 @@ const docs: Record<string, {
 
 <Badge>Default</Badge>
 <Badge variant="destructive">Destructive</Badge>`,
+  },
+  checkbox: {
+    title: "Checkbox",
+    description: "Toggle control with the project's emerald/dark aesthetic",
+    preview: (
+      <div className="flex items-center gap-6 flex-wrap">
+        <label className="flex items-center gap-2">
+          <Checkbox />
+          <span className="font-mono text-emerald-300">Enable feature</span>
+        </label>
+
+        <label className="flex items-center gap-2">
+          <Checkbox defaultChecked />
+          <span className="font-mono text-emerald-300">Checked</span>
+        </label>
+
+        <label className="flex items-center gap-2">
+          <Checkbox disabled />
+          <span className="font-mono text-emerald-300/70">Disabled</span>
+        </label>
+      </div>
+    ),
+    code: `import { Checkbox } from "@/components/ui/checkbox"
+
+// Basic usage
+<label>
+  <Checkbox />
+  <span>Enable feature</span>
+</label>
+
+// Checked or disabled
+<Checkbox defaultChecked />
+<Checkbox disabled />`,
   },
   button: {
     title: "Button",

@@ -30,6 +30,7 @@ const components = [
   "accordion",
   "alert",
   "badge", 
+  "checkbox",
   "button",
   "card",
   "command",
@@ -174,7 +175,7 @@ export default function DocsLayout({
               </Link>
             </SidebarHeader>
             
-            <SidebarContent className="overflow-x-hidden">
+            <SidebarContent className="overflow-x-hidden overflow-y-auto scrollbar-hide">
               <SidebarGroup>
                 <SidebarGroupContent>
                   <button
