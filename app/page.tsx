@@ -127,7 +127,7 @@ export default function Home() {
           </div>
 
           <div className="lg:col-span-6 space-y-2 sm:space-y-3">
-            <Card className="border-emerald-500/50 bg-[#001a1a] hover:border-emerald-400/70 cursor-pointer transition-all" onClick={() => setVideoOpen(true)}>
+            {/* <Card className="border-emerald-500/50 bg-[#001a1a] hover:border-emerald-400/70 cursor-pointer transition-all" onClick={() => setVideoOpen(true)}>
               <CardHeader>
                 <CardTitle className="text-sm sm:text-base flex items-center gap-2"><Play className="inline" size={14} />Featured</CardTitle>
                 <CardDescription className="text-xs">YouTube showcase</CardDescription>
@@ -135,7 +135,7 @@ export default function Home() {
               <CardContent>
                 <p className="text-xs text-emerald-300/80">We just got featured in a YouTube video! Click to watch.</p>
               </CardContent>
-            </Card>
+            </Card> */}
 
             <Card>
               <CardHeader>
