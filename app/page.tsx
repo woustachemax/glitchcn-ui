@@ -10,14 +10,14 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Terminal, Cpu, Shield, Activity, Lock, AlertTriangle, CheckCircle, Github, Zap, Code, Database, Network, HardDrive, Server, Copy, Check } from "lucide-react";
+import { Terminal, Cpu, Shield, Activity, Lock, AlertTriangle, CheckCircle, Github, Zap, Code, Database, Network, HardDrive, Server, Copy, Check, Play } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
-
+  const [videoOpen, setVideoOpen] = useState(false)
   const copyInstallCommand = () => {
     navigator.clipboard.writeText("npx shadcn@latest add @glitchcn/all");
     setCopied(true);
@@ -50,6 +50,16 @@ export default function Home() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-3" id="components">
           <div className="lg:col-span-3 space-y-2 sm:space-y-3">
+            <Card className="border-emerald-500/50 bg-[#001a1a] hover:border-emerald-400/70 cursor-pointer transition-all" onClick={() => setVideoOpen(true)}>
+              <CardHeader>
+                <CardTitle className="text-sm sm:text-base flex items-center gap-2"><Play className="inline" size={14} />Featured</CardTitle>
+                <CardDescription className="text-xs">YouTube showcase</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-emerald-300/80">We just got featured in a YouTube video! Click to watch.</p>
+              </CardContent>
+            </Card>
+
             <Card>
               <CardHeader>
                 <CardTitle className="text-sm sm:text-base"><Terminal className="inline mr-1" size={14} />Components</CardTitle>
@@ -90,25 +100,6 @@ export default function Home() {
               </CardFooter>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm sm:text-base"><Code className="inline mr-1" size={14} />Features</CardTitle>
-                <CardDescription className="text-xs">Terminal styling</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-1 text-xs">
-                  <div className="flex items-center gap-1"><Lock size={12} className="text-green-400" /><span>Cyberpunk theme</span></div>
-                  <div className="flex items-center gap-1"><Activity size={12} className="text-cyan-400" /><span>React ready</span></div>
-                  <div className="flex items-center gap-1"><Zap size={12} className="text-yellow-400" /><span>Fast rendering</span></div>
-                  <div className="flex items-center gap-1"><Code size={12} className="text-purple-400" /><span>TypeScript</span></div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button size="sm" onClick={() => window.open("https://github.com/woustachemax/glitchcn", "_blank")}>
-                  GitHub
-                </Button>
-              </CardFooter>
-            </Card>
 
             <Alert>
               <CheckCircle size={14} />
@@ -136,6 +127,16 @@ export default function Home() {
           </div>
 
           <div className="lg:col-span-6 space-y-2 sm:space-y-3">
+            <Card className="border-emerald-500/50 bg-[#001a1a] hover:border-emerald-400/70 cursor-pointer transition-all" onClick={() => setVideoOpen(true)}>
+              <CardHeader>
+                <CardTitle className="text-sm sm:text-base flex items-center gap-2"><Play className="inline" size={14} />Featured</CardTitle>
+                <CardDescription className="text-xs">YouTube showcase</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-emerald-300/80">We just got featured in a YouTube video! Click to watch.</p>
+              </CardContent>
+            </Card>
+
             <Card>
               <CardHeader>
                 <CardTitle className="text-sm sm:text-base"><Cpu className="inline mr-1" size={14} />Progress Demo</CardTitle>
@@ -313,26 +314,6 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-sm">Metrics</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs"><span>Components</span><span>12</span></div>
-                  <Progress value={100} />
-                </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs"><span>Variants</span><span>24</span></div>
-                  <Progress value={85} />
-                </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs"><span>Examples</span><span>48</span></div>
-                  <Progress value={92} />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
                 <CardTitle className="text-sm"><Server className="inline mr-1" size={14} />Resources</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
@@ -351,11 +332,26 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Alert className="hidden sm:flex">
-              <Zap size={14} />
-              <AlertTitle className="text-sm">Performance</AlertTitle>
-              <AlertDescription className="text-xs">Optimized rendering</AlertDescription>
-            </Alert>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm sm:text-base"><Code className="inline mr-1" size={14} />Features</CardTitle>
+                <CardDescription className="text-xs">Terminal styling</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-1 text-xs">
+                  <div className="flex items-center gap-1"><Lock size={12} className="text-green-400" /><span>Cyberpunk theme</span></div>
+                  <div className="flex items-center gap-1"><Activity size={12} className="text-cyan-400" /><span>React ready</span></div>
+                  <div className="flex items-center gap-1"><Zap size={12} className="text-yellow-400" /><span>Fast rendering</span></div>
+                  <div className="flex items-center gap-1"><Code size={12} className="text-purple-400" /><span>TypeScript</span></div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button size="sm" onClick={() => window.open("https://github.com/woustachemax/glitchcn", "_blank")}>
+                  GitHub
+                </Button>
+              </CardFooter>
+            </Card>
 
             <Card>
               <CardHeader>
@@ -368,6 +364,27 @@ export default function Home() {
                 <div className="flex justify-between"><span>Downloads</span><span className="text-emerald-300">1.2K</span></div>
               </CardContent>
             </Card>
+
+            <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+              <DialogContent className="max-w-[95vw] sm:max-w-2xl p-0 gap-0 bg-[#001a1a] border-emerald-500/50">
+                <DialogHeader className="p-4 border-b border-emerald-500/30">
+                  <DialogTitle>Glitchcn Featured on YouTube</DialogTitle>
+                  <DialogDescription className="text-xs">Watch our showcase video</DialogDescription>
+                </DialogHeader>
+                <div className="relative w-full aspect-video bg-black">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/15ZVQVlNR-o?si=XO9saWhYz9CRsn1w"
+                    title="Glitchcn UI Showcase"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="rounded-b-lg"
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
 
           <div className="col-span-1 lg:col-span-12">
