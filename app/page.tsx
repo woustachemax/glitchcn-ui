@@ -11,13 +11,31 @@ import { Progress } from "@/components/ui/progress";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Terminal, Cpu, Shield, Activity, Lock, AlertTriangle, CheckCircle, Github, Zap, Code, Database, Network, HardDrive, Server, Copy, Check, Play } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false)
+
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "Glitchcn/ui";
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex < fullText.length) {
+        setDisplayText(fullText.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 150 + Math.random() * 200); // Sluggish, slightly erratic timing
+
+    return () => clearInterval(typingInterval);
+  }, []);
+
   const copyInstallCommand = () => {
     navigator.clipboard.writeText("npx shadcn@latest add @glitchcn/all");
     setCopied(true);
@@ -27,19 +45,24 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black p-2 sm:p-3">
       <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.02)_50%,transparent_100%)] bg-size[100%_4px] animate-scanline pointer-events-none" />
-      
+
       <div className="relative max-w-[1800px] mx-auto space-y-2 sm:space-y-3">
         <header className="flex items-center justify-between p-2 sm:p-3 border-b border-emerald-500/30">
           <Link href="/" className="flex items-center gap-2 group cursor-pointer">
             <Terminal className="text-cyan-400" size={20} />
-            <h1 className="font-mono text-lg sm:text-2xl font-bold tracking-wider text-emerald-300">Glitchcn/ui</h1>
+            <div className="flex items-baseline">
+              <h1 className="font-mono text-lg sm:text-2xl font-bold tracking-wider text-emerald-300 min-w-[1ch]">
+                {displayText}
+                <span className="animate-pulse ml-1 inline-block w-2 sm:w-3 h-4 sm:h-6 bg-emerald-500/80 align-middle shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+              </h1>
+            </div>
             <span className="font-mono text-xs text-emerald-400/50 ml-1 sm:ml-2 hidden sm:inline">v1.0.0</span>
           </Link>
           <div className="flex gap-2">
-            <Button size="sm" className="hidden sm:inline-flex" asChild onClick={()=>router.push('/docs')}>
+            <Button size="sm" className="hidden sm:inline-flex" asChild onClick={() => router.push('/docs')}>
               Docs
             </Button>
-            <Button size="sm" className="" asChild onClick={()=>router.push('/docs/components')}>
+            <Button size="sm" className="" asChild onClick={() => router.push('/docs/components')}>
               Components
             </Button>
             <Button size="sm" onClick={() => window.open("https://github.com/woustachemax/glitchcn-ui", "_blank")}>
@@ -76,7 +99,7 @@ export default function Home() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button size="sm" asChild onClick={()=>router.push('/docs/components')}>
+                <Button size="sm" asChild onClick={() => router.push('/docs/components')}>
                   View All
                 </Button>
               </CardFooter>
@@ -390,7 +413,7 @@ export default function Home() {
           <div className="col-span-1 lg:col-span-12">
             <footer className="text-end py-3">
               <p className="font-mono text-xs text-emerald-400/70">
-                  Made without '$$' by <a href="https://www.siddharththakkar.xyz/" target="_blank" rel="noopener noreferrer" className="text-emerald-300 hover:text-cyan-400">woustachemax</a>
+                Made without '$$' by <a href="https://www.siddharththakkar.xyz/" target="_blank" rel="noopener noreferrer" className="text-emerald-300 hover:text-cyan-400">woustachemax</a>
               </p>
             </footer>
           </div>
