@@ -17,24 +17,62 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
-  const [videoOpen, setVideoOpen] = useState(false)
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadStage, setLoadStage] = useState(0);
+  const [progress, setProgress] = useState("");
 
   const [displayText, setDisplayText] = useState("");
   const fullText = "Glitchcn/ui";
 
   useEffect(() => {
+    const stages = [
+      { text: "INIT_CORE_SYSTEM", delay: 800 },
+      { text: "MOUNTING_FILESYSTEM", delay: 600 },
+      { text: "ESTABLISHING_UPLINK", delay: 1000 },
+      { text: "DECRYPTING_ASSETS", delay: 400 },
+    ];
+
+    let currentStage = 0;
+    const runStages = async () => {
+      for (const stage of stages) {
+        setLoadStage(currentStage);
+        await new Promise(r => setTimeout(r, stage.delay));
+        currentStage++;
+      }
+
+      let bar = "";
+      for (let i = 0; i < 40; i++) {
+        bar += "█";
+        setProgress(bar);
+        await new Promise(r => setTimeout(r, 40 + Math.random() * 100));
+      }
+
+      await new Promise(r => setTimeout(r, 600));
+      setIsLoading(false);
+    };
+
+    runStages();
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+
     let currentIndex = 0;
-    const typingInterval = setInterval(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    const typeNextChar = () => {
       if (currentIndex < fullText.length) {
         setDisplayText(fullText.slice(0, currentIndex + 1));
         currentIndex++;
-      } else {
-        clearInterval(typingInterval);
+        const nextDelay = 150 + Math.random() * 300;
+        timeoutId = setTimeout(typeNextChar, nextDelay);
       }
-    }, 150 + Math.random() * 200); // Sluggish, slightly erratic timing
+    };
 
-    return () => clearInterval(typingInterval);
-  }, []);
+    timeoutId = setTimeout(typeNextChar, 500);
+    return () => clearTimeout(timeoutId);
+  }, [isLoading]);
 
   const copyInstallCommand = () => {
     navigator.clipboard.writeText("npx shadcn@latest add @glitchcn/all");
@@ -42,8 +80,39 @@ export default function Home() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center p-4 font-mono">
+        <div className="max-w-md w-full space-y-4 sm:space-y-6">
+          <div className="space-y-1 text-emerald-500 text-[10px] sm:text-xs">
+            <p className={loadStage >= 1 ? "opacity-100" : "opacity-0"}>[ OK ] INIT_CORE_SYSTEM</p>
+            <p className={loadStage >= 2 ? "opacity-100" : "opacity-0"}>[ OK ] MOUNTING_FILESYSTEM</p>
+            <p className={loadStage >= 3 ? "opacity-100" : "opacity-0"}>[ OK ] ESTABLISHING_UPLINK</p>
+            <p className={loadStage >= 4 ? "opacity-100" : "opacity-0"}>[ OK ] DECRYPTING_ASSETS</p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex justify-between text-[8px] sm:text-[10px] text-emerald-500/30 uppercase tracking-tighter">
+              <span>System_Load</span>
+              <span>{Math.round((progress.length / 40) * 100)}%</span>
+            </div>
+            <div className="h-4 sm:h-5 border border-emerald-500/20 p-0.5 bg-emerald-500/5 overflow-hidden w-full max-w-[280px] mx-auto">
+              <div className="text-emerald-400 leading-none text-xs sm:text-sm tracking-normal whitespace-nowrap font-mono">
+                {progress}
+              </div>
+            </div>
+          </div>
+
+          <div className="text-[8px] sm:text-[10px] text-emerald-500/10 animate-pulse uppercase tracking-widest">
+            {progress.length < 40 ? "Synchronizing neuro-link..." : "Access granted. Welcome hacker."}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-black p-2 sm:p-3">
+    <div className="min-h-screen bg-black p-2 sm:p-3 animate-in fade-in duration-2000">
       <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.02)_50%,transparent_100%)] bg-size[100%_4px] animate-scanline pointer-events-none" />
 
       <div className="relative max-w-[1800px] mx-auto space-y-2 sm:space-y-3">
@@ -53,7 +122,7 @@ export default function Home() {
             <div className="flex items-baseline">
               <h1 className="font-mono text-lg sm:text-2xl font-bold tracking-wider text-emerald-300 min-w-[1ch]">
                 {displayText}
-                <span className="animate-pulse ml-1 inline-block w-2 sm:w-3 h-4 sm:h-6 bg-emerald-500/80 align-middle shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                <span className="animate-pulse ml-1 inline-block w-2 sm:w-3 h-4 sm:h-6 bg-emerald-500/20 align-middle shadow-[0_0_2px_rgba(16,185,129,0.1)]" />
               </h1>
             </div>
             <span className="font-mono text-xs text-emerald-400/50 ml-1 sm:ml-2 hidden sm:inline">v1.0.0</span>
