@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Glitchcn/ui",
-  description: "I don't have a desc, yet!",
+  description: "A cyberpunk React component library. Glitch effects, terminal UIs, and neon-accented components built on shadcn/ui primitives",
   icons: {
     icon: '/favicon.svg'
   }
