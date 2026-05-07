@@ -13,44 +13,37 @@ export default function OGImage() {
           height: "100%",
           background: "#000000",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          padding: "80px",
-          fontFamily: "monospace",
           position: "relative",
+          fontFamily: "monospace",
         }}
       >
-        <div style={{ position: "absolute", top: 60, left: 60, right: 60, height: 2, background: "#10b981", display: "flex" }} />
-        <div style={{ position: "absolute", top: 60, left: 60, bottom: 60, width: 2, background: "#10b981", display: "flex" }} />
-        <div style={{ position: "absolute", top: 60, right: 60, bottom: 60, width: 2, background: "#10b981", display: "flex" }} />
-        <div style={{ position: "absolute", bottom: 60, left: 60, right: 60, height: 2, background: "#10b981", display: "flex" }} />
+        <div style={{ position: "absolute", top: 60, left: 60, width: 1080, height: 24, background: "#10b981", display: "flex" }} />
+        <div style={{ position: "absolute", top: 84, left: 60, width: 24, height: 462, background: "#10b981", display: "flex" }} />
+        <div style={{ position: "absolute", top: 84, left: 1116, width: 24, height: 462, background: "#10b981", display: "flex" }} />
+        <div style={{ position: "absolute", top: 546, left: 60, width: 1080, height: 24, background: "#10b981", display: "flex" }} />
 
-        <div style={{ display: "flex", flexDirection: "column", marginTop: 40 }}>
-          <div style={{ color: "#10b981", fontSize: 22, opacity: 0.6, marginBottom: 8, display: "flex" }}>
-            [ OK ] DECRYPTING_ASSETS
-          </div>
-          <div style={{ color: "#10b981", fontSize: 22, opacity: 0.6, marginBottom: 60, display: "flex" }}>
-            [ OK ] ESTABLISHING_UPLINK
-          </div>
+        <div style={{ position: "absolute", top: 160, left: 140, width: 180, height: 30, background: "#06b6d4", display: "flex" }} />
+        <div style={{ position: "absolute", top: 220, left: 140, width: 270, height: 30, background: "#06b6d4", display: "flex" }} />
+        <div style={{ position: "absolute", top: 280, left: 140, width: 135, height: 30, background: "#06b6d4", display: "flex" }} />
 
-          <div style={{ color: "#10b981", fontSize: 108, fontWeight: 700, marginBottom: 28, display: "flex", letterSpacing: "-2px" }}>
+        <div style={{ position: "absolute", top: 340, left: 140, width: 68, height: 30, background: "#10b981", display: "flex" }} />
+        <div style={{ position: "absolute", top: 340, left: 230, width: 45, height: 30, background: "#10b981", display: "flex" }} />
+
+        <div
+          style={{
+            position: "absolute",
+            top: 220,
+            left: 560,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ color: "#10b981", fontSize: 88, fontWeight: 700, letterSpacing: "-3px", display: "flex" }}>
             Glitchcn/ui
           </div>
-
-          <div style={{ color: "#06b6d4", fontSize: 30, marginBottom: 44, display: "flex" }}>
-            $ npx shadcn@latest add @glitchcn/all
+          <div style={{ color: "#06b6d4", fontSize: 24, opacity: 0.7, marginTop: 20, display: "flex" }}>
+            cyberpunk components for shadcn/ui
           </div>
-
-          <div style={{ color: "#10b981", fontSize: 24, opacity: 0.7, marginBottom: 8, display: "flex" }}>
-            Cyberpunk React components.
-          </div>
-          <div style={{ color: "#10b981", fontSize: 24, opacity: 0.7, display: "flex" }}>
-            Glitch effects. Terminal UIs. Neon accents.
-          </div>
-        </div>
-
-        <div style={{ position: "absolute", bottom: 90, right: 90, color: "#10b981", fontSize: 18, opacity: 0.5, display: "flex" }}>
-          v1.0.0
         </div>
       </div>
     ),
