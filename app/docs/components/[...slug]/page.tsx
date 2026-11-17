@@ -18,6 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Spinner, LoadingOverlay } from "@/components/ui/spinner";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { CopyForAI } from "@/components/copy-for-ai";
 
 
 const docs: Record<string, { 
@@ -656,6 +657,9 @@ export default function ComponentPage({
           {doc.title}
         </h1>
         <p className="text-sm sm:text-base text-[rgb(var(--glitch-primary)/70%)] font-mono wrap-break-word">{doc.description}</p>
+        <div className="mt-4">
+          <CopyForAI name={componentName} title={doc.title} description={doc.description} usage={doc.code} />
+        </div>
       </div>
 
       {doc.dependencies && doc.dependencies.length > 0 && (

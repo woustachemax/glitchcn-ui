@@ -30,10 +30,17 @@ function buildFaviconHref(theme: ThemeId) {
 }
 
 function applyFavicon(theme: ThemeId) {
-  document.querySelectorAll<HTMLLinkElement>("link[rel~='icon']").forEach((el) => el.remove())
+  const href = buildFaviconHref(theme)
+  const links = document.querySelectorAll<HTMLLinkElement>("link[rel~='icon']")
+  if (links.length > 0) {
+    links.forEach((el) => {
+      el.href = href
+    })
+    return
+  }
   const link = document.createElement("link")
   link.rel = "icon"
-  link.href = buildFaviconHref(theme)
+  link.href = href
   document.head.appendChild(link)
 }
 

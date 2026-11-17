@@ -19,46 +19,10 @@ export default function Home() {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadStage, setLoadStage] = useState(0);
-  const [progress, setProgress] = useState("");
-
   const [displayText, setDisplayText] = useState("");
   const fullText = "Glitchcn/ui";
 
   useEffect(() => {
-    const stages = [
-      { text: "INIT_CORE_SYSTEM", delay: 800 },
-      { text: "MOUNTING_FILESYSTEM", delay: 600 },
-      { text: "ESTABLISHING_UPLINK", delay: 1000 },
-      { text: "DECRYPTING_ASSETS", delay: 400 },
-    ];
-
-    let currentStage = 0;
-    const runStages = async () => {
-      for (const stage of stages) {
-        setLoadStage(currentStage);
-        await new Promise(r => setTimeout(r, stage.delay));
-        currentStage++;
-      }
-
-      let bar = "";
-      for (let i = 0; i < 40; i++) {
-        bar += "█";
-        setProgress(bar);
-        await new Promise(r => setTimeout(r, 40 + Math.random() * 100));
-      }
-
-      await new Promise(r => setTimeout(r, 600));
-      setIsLoading(false);
-    };
-
-    runStages();
-  }, []);
-
-  useEffect(() => {
-    if (isLoading) return;
-
     let currentIndex = 0;
     let timeoutId: NodeJS.Timeout;
 
@@ -73,44 +37,13 @@ export default function Home() {
 
     timeoutId = setTimeout(typeNextChar, 500);
     return () => clearTimeout(timeoutId);
-  }, [isLoading]);
+  }, []);
 
   const copyInstallCommand = () => {
     navigator.clipboard.writeText("npx shadcn@latest add @glitchcn/all");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[rgb(var(--glitch-surface))] flex items-center justify-center p-4 font-mono">
-        <div className="max-w-md w-full space-y-4 sm:space-y-6">
-          <div className="space-y-1 text-[rgb(var(--glitch-border))] text-[10px] sm:text-xs">
-            <p className={loadStage >= 1 ? "opacity-100" : "opacity-0"}>[ OK ] INIT_CORE_SYSTEM</p>
-            <p className={loadStage >= 2 ? "opacity-100" : "opacity-0"}>[ OK ] MOUNTING_FILESYSTEM</p>
-            <p className={loadStage >= 3 ? "opacity-100" : "opacity-0"}>[ OK ] ESTABLISHING_UPLINK</p>
-            <p className={loadStage >= 4 ? "opacity-100" : "opacity-0"}>[ OK ] DECRYPTING_ASSETS</p>
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex justify-between text-[8px] sm:text-[10px] text-[rgb(var(--glitch-border)/30%)] uppercase tracking-tighter">
-              <span>System_Load</span>
-              <span>{Math.round((progress.length / 40) * 100)}%</span>
-            </div>
-            <div className="h-4 sm:h-5 border border-[rgb(var(--glitch-border)/20%)] p-0.5 bg-[rgb(var(--glitch-border)/5%)] overflow-hidden w-full max-w-[280px] mx-auto">
-              <div className="text-[rgb(var(--glitch-border-hover))] leading-none text-xs sm:text-sm tracking-normal whitespace-nowrap font-mono">
-                {progress}
-              </div>
-            </div>
-          </div>
-
-          <div className="text-[8px] sm:text-[10px] text-[rgb(var(--glitch-border)/10%)] animate-pulse uppercase tracking-widest">
-            {progress.length < 40 ? "Synchronizing neuro-link..." : "Access granted. Welcome hacker."}
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[rgb(var(--glitch-surface))] p-2 sm:p-3 animate-in fade-in duration-2000">
