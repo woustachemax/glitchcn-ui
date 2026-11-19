@@ -77,7 +77,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('glitch-theme')||'emerald';var m=localStorage.getItem('glitch-mode')||'dark';document.documentElement.dataset.glitchTheme=t;document.documentElement.dataset.mode=m;}catch(e){}})();`,
+            __html: `(function(){try{var d=document.documentElement;var t=localStorage.getItem('glitch-theme')||'emerald';var m=localStorage.getItem('glitch-mode')||'dark';d.dataset.glitchTheme=t;d.dataset.mode=m;if(t==='custom'){var c=JSON.parse(localStorage.getItem('glitch-custom-theme')||'null');var p=c&&c[m==='light'?'light':'dark'];if(p){for(var k in p){d.style.setProperty('--glitch-'+k,p[k]);}}else{d.dataset.glitchTheme='emerald';}}}catch(e){}})();`,
           }}
         />
       </head>

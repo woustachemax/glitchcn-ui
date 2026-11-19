@@ -1,8 +1,17 @@
 "use client"
 
 import * as React from "react"
-import { Palette, Sun, Moon, Check } from "lucide-react"
+import { Palette, Sun, Moon, Check, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ThemeGenerator, OPEN_GENERATOR_EVENT } from "@/components/theme-generator"
+import {
+  applyCustomPalette,
+  clearCustomPalette,
+  loadCustomTheme,
+  saveCustomTheme,
+  tripletToHex,
+  type CustomTheme,
+} from "@/lib/custom-theme"
 
 const THEMES = [
   { id: "emerald", label: "Emerald" },
@@ -12,10 +21,11 @@ const THEMES = [
   { id: "glacier", label: "Glacier" },
 ] as const
 
-type ThemeId = (typeof THEMES)[number]["id"]
+type BuiltInThemeId = (typeof THEMES)[number]["id"]
+type ThemeId = BuiltInThemeId | "custom"
 type Mode = "dark" | "light"
 
-const FAVICON_COLORS: Record<ThemeId, { border: string; accent: string }> = {
+const FAVICON_COLORS: Record<BuiltInThemeId, { border: string; accent: string }> = {
   emerald: { border: "#10b981", accent: "#06b6d4" },
   synthwave: { border: "#d946ef", accent: "#facc15" },
   amber: { border: "#f59e0b", accent: "#3b82f6" },
@@ -23,14 +33,13 @@ const FAVICON_COLORS: Record<ThemeId, { border: string; accent: string }> = {
   glacier: { border: "#38bdf8", accent: "#f472b6" },
 }
 
-function buildFaviconHref(theme: ThemeId) {
-  const { border, accent } = FAVICON_COLORS[theme]
+function buildFaviconHref({ border, accent }: { border: string; accent: string }) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="#000000"/><rect x="4" y="4" width="24" height="2" fill="${border}"/><rect x="4" y="6" width="2" height="20" fill="${border}"/><rect x="26" y="6" width="2" height="20" fill="${border}"/><rect x="4" y="26" width="24" height="2" fill="${border}"/><rect x="8" y="10" width="8" height="2" fill="${accent}"/><rect x="8" y="14" width="12" height="2" fill="${accent}"/><rect x="8" y="18" width="6" height="2" fill="${accent}"/><rect x="8" y="22" width="3" height="2" fill="${border}"/><rect x="12" y="22" width="2" height="2" fill="${border}"/></svg>`
   return `data:image/svg+xml,${encodeURIComponent(svg)}`
 }
 
-function applyFavicon(theme: ThemeId) {
-  const href = buildFaviconHref(theme)
+function applyFavicon(colors: { border: string; accent: string }) {
+  const href = buildFaviconHref(colors)
   const links = document.querySelectorAll<HTMLLinkElement>("link[rel~='icon']")
   if (links.length > 0) {
     links.forEach((el) => {
@@ -44,10 +53,19 @@ function applyFavicon(theme: ThemeId) {
   document.head.appendChild(link)
 }
 
-function applyTheme(theme: ThemeId, mode: Mode) {
-  document.documentElement.dataset.glitchTheme = theme
+// `custom` is either a live preview (not yet kept) or the saved AI-generated theme.
+function applyTheme(theme: ThemeId, mode: Mode, custom: CustomTheme | null) {
   document.documentElement.dataset.mode = mode
-  applyFavicon(theme)
+  if (custom) {
+    document.documentElement.dataset.glitchTheme = "custom"
+    applyCustomPalette(custom[mode])
+    applyFavicon({ border: tripletToHex(custom.dark.border), accent: tripletToHex(custom.dark.accent) })
+    return
+  }
+  const builtIn: BuiltInThemeId = theme === "custom" ? "emerald" : theme
+  clearCustomPalette()
+  document.documentElement.dataset.glitchTheme = builtIn
+  applyFavicon(FAVICON_COLORS[builtIn])
 }
 
 export function ThemeSwitcher({ className }: { className?: string }) {
@@ -55,16 +73,38 @@ export function ThemeSwitcher({ className }: { className?: string }) {
   const [mode, setMode] = React.useState<Mode>("dark")
   const [open, setOpen] = React.useState(false)
   const [showHint, setShowHint] = React.useState(false)
+  const [savedCustom, setSavedCustom] = React.useState<CustomTheme | null>(null)
+  const [preview, setPreview] = React.useState<CustomTheme | null>(null)
+  const [generatorOpen, setGeneratorOpen] = React.useState(false)
+  const [autoPrompt, setAutoPrompt] = React.useState<string | null>(null)
+
+  React.useEffect(() => {
+    const onOpen = (event: Event) => {
+      const prompt = (event as CustomEvent<{ prompt?: string }>).detail?.prompt?.trim()
+      setAutoPrompt(prompt || null)
+      setGeneratorOpen(true)
+      setOpen(false)
+    }
+    window.addEventListener(OPEN_GENERATOR_EVENT, onOpen)
+    return () => window.removeEventListener(OPEN_GENERATOR_EVENT, onOpen)
+  }, [])
   const containerRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
     const storedTheme = localStorage.getItem("glitch-theme") as ThemeId | null
     const storedMode = localStorage.getItem("glitch-mode") as Mode | null
-    const nextTheme = storedTheme && THEMES.some((t) => t.id === storedTheme) ? storedTheme : "emerald"
+    const custom = loadCustomTheme()
+    const nextTheme: ThemeId =
+      storedTheme === "custom" && custom
+        ? "custom"
+        : storedTheme && THEMES.some((t) => t.id === storedTheme)
+          ? storedTheme
+          : "emerald"
     const nextMode = storedMode === "light" ? "light" : "dark"
     setTheme(nextTheme)
     setMode(nextMode)
-    applyTheme(nextTheme, nextMode)
+    setSavedCustom(custom)
+    applyTheme(nextTheme, nextMode, nextTheme === "custom" ? custom : null)
     setShowHint(!localStorage.getItem("glitch-theme-hint-seen"))
   }, [])
 
@@ -86,24 +126,40 @@ export function ThemeSwitcher({ className }: { className?: string }) {
     return () => document.removeEventListener("mousedown", handleClick)
   }, [open])
 
+  const activeCustom = (t: ThemeId) => (t === "custom" ? savedCustom : null)
+
   const selectTheme = (nextTheme: ThemeId) => {
     setTheme(nextTheme)
     localStorage.setItem("glitch-theme", nextTheme)
-    applyTheme(nextTheme, mode)
+    applyTheme(nextTheme, mode, preview ?? activeCustom(nextTheme))
   }
 
   const toggleMode = () => {
     const nextMode: Mode = mode === "dark" ? "light" : "dark"
     setMode(nextMode)
     localStorage.setItem("glitch-mode", nextMode)
-    applyTheme(theme, nextMode)
+    applyTheme(theme, nextMode, preview ?? activeCustom(theme))
+  }
+
+  const handlePreview = (next: CustomTheme | null) => {
+    setPreview(next)
+    applyTheme(theme, mode, next ?? activeCustom(theme))
+  }
+
+  const handleKeep = (kept: CustomTheme) => {
+    saveCustomTheme(kept)
+    setSavedCustom(kept)
+    setPreview(null)
+    setTheme("custom")
+    localStorage.setItem("glitch-theme", "custom")
+    applyTheme("custom", mode, kept)
   }
 
   return (
     <div ref={containerRef} className={cn("relative flex items-center gap-1", className)}>
       {showHint && (
         <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-wider text-[rgb(var(--glitch-accent))] animate-pulse mr-1">
-          5 themes, try me
+          5 themes + AI, try me
         </span>
       )}
       <button
@@ -139,7 +195,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
       {open && (
         <div
           className={cn(
-            "absolute right-0 top-full mt-2 z-50 w-40 p-1",
+            "absolute right-0 top-full mt-2 z-50 w-44 p-1",
             "bg-[rgb(var(--glitch-surface))] border border-[rgb(var(--glitch-border)/50%)]",
             "shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/20%),0_0_0_1px_rgb(var(--glitch-accent)/15%),0_8px_32px_rgba(0,0,0,0.6)]"
           )}
@@ -162,8 +218,52 @@ export function ThemeSwitcher({ className }: { className?: string }) {
               {entry.id === theme && <Check size={12} className="text-[rgb(var(--glitch-accent))]" />}
             </button>
           ))}
+          {savedCustom && (
+            <button
+              type="button"
+              onClick={() => {
+                selectTheme("custom")
+                setOpen(false)
+              }}
+              className={cn(
+                "w-full flex items-center justify-between gap-2 px-2 py-1.5 text-xs font-mono text-left rounded",
+                "text-[rgb(var(--glitch-primary)/90%)] hover:bg-[rgb(var(--glitch-border)/10%)] hover:text-[rgb(var(--glitch-primary))]",
+                "transition-colors"
+              )}
+            >
+              <span className="truncate">{savedCustom.name}</span>
+              {theme === "custom" && <Check size={12} className="shrink-0 text-[rgb(var(--glitch-accent))]" />}
+            </button>
+          )}
+          <div className="my-1 h-px bg-[rgb(var(--glitch-border)/30%)]" />
+          <button
+            type="button"
+            onClick={() => {
+              setAutoPrompt(null)
+              setGeneratorOpen(true)
+              setOpen(false)
+            }}
+            className={cn(
+              "w-full flex items-center gap-2 px-2 py-1.5 text-xs font-mono text-left rounded",
+              "text-[rgb(var(--glitch-accent))] hover:bg-[rgb(var(--glitch-border)/10%)]",
+              "transition-colors"
+            )}
+          >
+            <Sparkles size={12} />
+            Generate with AI
+          </button>
         </div>
       )}
+      <ThemeGenerator
+        open={generatorOpen}
+        autoPrompt={autoPrompt}
+        onClose={() => {
+          setGeneratorOpen(false)
+          setAutoPrompt(null)
+        }}
+        onPreview={handlePreview}
+        onKeep={handleKeep}
+      />
     </div>
   )
 }

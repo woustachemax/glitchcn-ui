@@ -14,6 +14,28 @@ import { Terminal, Cpu, Shield, Activity, Lock, AlertTriangle, CheckCircle, Gith
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { ThemeHero } from "@/components/theme-hero";
+
+// Drifts each value around its base so the demo dashboard feels alive.
+function useLiveValues(bases: number[], spread = 12, ms = 1400) {
+  const [values, setValues] = useState(bases);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => {
+      setValues((prev) =>
+        prev.map((v, i) => {
+          const next = v + (Math.random() - 0.5) * spread;
+          const min = Math.max(0, bases[i] - spread * 1.5);
+          const max = Math.min(100, bases[i] + spread * 1.5);
+          return Math.round(Math.min(max, Math.max(min, next)));
+        })
+      );
+    }, ms);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return values;
+}
 
 export default function Home() {
   const router = useRouter();
@@ -21,6 +43,9 @@ export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false);
   const [displayText, setDisplayText] = useState("");
   const fullText = "Glitchcn/ui";
+  const [demoA, demoB] = useLiveValues([82, 45]);
+  const [cpu, mem, disk] = useLiveValues([42, 68, 31], 16, 1100);
+  const [latency] = useLiveValues([12], 8, 900);
 
   useEffect(() => {
     let currentIndex = 0;
@@ -76,6 +101,10 @@ export default function Home() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-3" id="components">
+          <div className="lg:col-span-12">
+            <ThemeHero />
+          </div>
+
           <div className="lg:col-span-3 space-y-2 sm:space-y-3">
             <Card className="border-[rgb(var(--glitch-border)/50%)] bg-[rgb(var(--glitch-surface))] hover:border-[rgb(var(--glitch-border-hover)/70%)] cursor-pointer transition-all" onClick={() => setVideoOpen(true)}>
               <CardHeader>
@@ -160,10 +189,10 @@ export default function Home() {
                 <CardDescription className="text-xs">Animated bars</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
-                <div className="flex justify-between text-xs"><span>Example</span><span>82%</span></div>
-                <Progress value={82} />
-                <div className="flex justify-between text-xs"><span>Loading</span><span>45%</span></div>
-                <Progress value={45} />
+                <div className="flex justify-between text-xs"><span>Example</span><span>{demoA}%</span></div>
+                <Progress value={demoA} />
+                <div className="flex justify-between text-xs"><span>Loading</span><span>{demoB}%</span></div>
+                <Progress value={demoB} />
                 <div className="flex justify-between text-xs"><span>Complete</span><span>100%</span></div>
                 <Progress value={100} />
               </CardContent>
@@ -218,7 +247,7 @@ export default function Home() {
                   <CardTitle className="text-sm"><Network className="inline mr-1" size={14} />Network</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-1 text-xs">
-                  <div className="flex justify-between"><span>Latency</span><Badge>12ms</Badge></div>
+                  <div className="flex justify-between"><span>Latency</span><Badge>{Math.max(3, latency)}ms</Badge></div>
                   <div className="flex justify-between"><span>Bandwidth</span><Badge>1.2GB/s</Badge></div>
                   <div className="flex justify-between"><span>Packets</span><Badge>847K</Badge></div>
                 </CardContent>
@@ -335,16 +364,16 @@ export default function Home() {
               </CardHeader>
               <CardContent className="space-y-2">
                 <div className="space-y-1">
-                  <div className="flex justify-between text-xs"><span>CPU Usage</span><span>42%</span></div>
-                  <Progress value={42} />
+                  <div className="flex justify-between text-xs"><span>CPU Usage</span><span>{cpu}%</span></div>
+                  <Progress value={cpu} />
                 </div>
                 <div className="space-y-1">
-                  <div className="flex justify-between text-xs"><span>Memory</span><span>68%</span></div>
-                  <Progress value={68} />
+                  <div className="flex justify-between text-xs"><span>Memory</span><span>{mem}%</span></div>
+                  <Progress value={mem} />
                 </div>
                 <div className="space-y-1">
-                  <div className="flex justify-between text-xs"><span>Disk I/O</span><span>31%</span></div>
-                  <Progress value={31} />
+                  <div className="flex justify-between text-xs"><span>Disk I/O</span><span>{disk}%</span></div>
+                  <Progress value={disk} />
                 </div>
               </CardContent>
             </Card>
