@@ -1,15 +1,12 @@
 import { Ratelimit } from "@upstash/ratelimit"
-import { Redis } from "@upstash/redis"
+import { redis } from "@/lib/redis"
 
-// Per-visitor and site-wide caps on AI theme generations. The global cap
+// Per-visitor (IP) and site-wide caps on AI theme generations. The global cap
 // bounds daily API spend even if someone rotates IPs.
-export const PER_IP_DAILY_LIMIT = Number(process.env.THEME_GEN_PER_IP_DAILY ?? 5)
+export const PER_VISITOR_DAILY_LIMIT = Number(process.env.THEME_GEN_PER_IP_DAILY ?? 5)
 export const GLOBAL_DAILY_LIMIT = Number(process.env.THEME_GEN_GLOBAL_DAILY ?? 300)
 
-export type LimitResult = { ok: true; remaining: number } | { ok: false; scope: "ip" | "global"; reset: number }
-
-const url = process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL
-const token = process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN
+export type LimitResult = { ok: true; remaining: number } | { ok: false; scope: "visitor" | "global"; reset: number }
 
 type Limiter = { limit: (id: string) => Promise<{ success: boolean; remaining: number; reset: number }> }
 
@@ -33,18 +30,17 @@ function memoryLimiter(max: number, windowMs: number): Limiter {
 
 const DAY_MS = 24 * 60 * 60 * 1000
 
-let ipLimiter: Limiter
+let visitorLimiter: Limiter
 let globalLimiter: Limiter
 
-if (url && token) {
-  const redis = new Redis({ url, token })
-  ipLimiter = new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(PER_IP_DAILY_LIMIT, "1 d"), prefix: "theme-gen:ip" })
+if (redis) {
+  visitorLimiter = new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(PER_VISITOR_DAILY_LIMIT, "1 d"), prefix: "theme-gen:ip" })
   globalLimiter = new Ratelimit({ redis, limiter: Ratelimit.fixedWindow(GLOBAL_DAILY_LIMIT, "1 d"), prefix: "theme-gen:global" })
 } else {
   if (process.env.NODE_ENV === "production") {
     console.warn("rate-limit: no Redis configured, falling back to per-instance in-memory limits")
   }
-  ipLimiter = memoryLimiter(PER_IP_DAILY_LIMIT, DAY_MS)
+  visitorLimiter = memoryLimiter(PER_VISITOR_DAILY_LIMIT, DAY_MS)
   globalLimiter = memoryLimiter(GLOBAL_DAILY_LIMIT, DAY_MS)
 }
 
@@ -54,9 +50,9 @@ export function clientIp(request: Request): string {
 }
 
 export async function checkThemeGenLimit(ip: string): Promise<LimitResult> {
-  const perIp = await ipLimiter.limit(ip)
-  if (!perIp.success) return { ok: false, scope: "ip", reset: perIp.reset }
+  const perVisitor = await visitorLimiter.limit(ip)
+  if (!perVisitor.success) return { ok: false, scope: "visitor", reset: perVisitor.reset }
   const global = await globalLimiter.limit("all")
   if (!global.success) return { ok: false, scope: "global", reset: global.reset }
-  return { ok: true, remaining: perIp.remaining }
+  return { ok: true, remaining: perVisitor.remaining }
 }

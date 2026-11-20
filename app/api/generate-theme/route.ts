@@ -1,9 +1,10 @@
 import Anthropic from "@anthropic-ai/sdk"
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod"
 import { z } from "zod"
-import { THEME_TOKENS, hexToTriplet, type Palette } from "@/lib/custom-theme"
+import { THEME_TOKENS, clampShape, hexToTriplet, type Palette } from "@/lib/custom-theme"
 import { checkThemeGenLimit, clientIp } from "@/lib/rate-limit"
 import { saveTheme } from "@/lib/theme-store"
+import { ANON_COOKIE, addToCorner, newAnonHandle, readAnonCookie } from "@/lib/corner"
 
 const MAX_PROMPT_LENGTH = 300
 
@@ -18,9 +19,13 @@ const ThemeSchema = z.object({
   name: z.string(),
   dark: paletteSchema,
   light: paletteSchema,
+  shape: z.object({
+    radius: z.number(),
+    cut: z.number(),
+  }),
 })
 
-const SYSTEM_PROMPT = `You design color themes for Glitchcn/ui, a cyberpunk, terminal-styled React component library.
+const SYSTEM_PROMPT = `You design themes (colors and container shape) for Glitchcn/ui, a cyberpunk, terminal-styled React component library.
 
 Each theme has a dark and a light palette. Every palette has these 12 tokens, each a 6-digit hex color like "#10b981":
 
@@ -38,6 +43,11 @@ Each theme has a dark and a light palette. Every palette has these 12 tokens, ea
 Reference — the built-in "emerald" theme:
 dark: surface #001a1a, surface-hover #002626, primary #6ee7b7, border #10b981, border-hover #34d399, accent #06b6d4, destructive-surface #1a0000, destructive-surface-hover #260000, destructive #fda4af, destructive-border #f43f5e, destructive-border-hover #fb7185, destructive-glow #ef4444
 light: surface #ecfdf5, surface-hover #d1fae5, primary #047857, border #6ee7b7, border-hover #34d399, accent #6ee7b7, destructive-surface #fff1f2, destructive-surface-hover #ffe4e6, destructive #be123c, destructive-border #fda4af, destructive-border-hover #fb7185, destructive-glow #ef4444
+
+Each theme also has a shape for its containers (cards, buttons, inputs, dialogs, badges), in pixels:
+- radius (0-24): corner rounding. 0 = square corners. 4-8 = subtly soft. 12-24 = pill-like, bubbly, friendly.
+- cut (0-16): size of the sliced/chamfered corners that give the library its default sci-fi look. The default is 8. 0 = no slice.
+Use one or the other: when radius is above 0, set cut to 0. Pick the shape that fits the vibe: hard sci-fi, cyberpunk, military or terminal vibes keep cut 6-12 and radius 0; brutalist or retro-computing vibes use radius 0 and cut 0; soft, cute, pastel, organic, bubbly or modern-app vibes use radius 8-20 and cut 0. If the user asks for a specific shape (e.g. "rounded", "sharp", "pill buttons"), follow it.
 
 Interpret the user's description (a mood, a place, a brand vibe, a color, a movie aesthetic) and produce a cohesive theme. Keep the destructive tokens recognizably red/rose/orange unless the theme's main hue is already red, in which case shift them toward rose or magenta so errors stay distinguishable. Give the theme a short, evocative name (1-2 words).`
 
@@ -59,12 +69,13 @@ export async function POST(request: Request) {
   }
   const trimmed = prompt.trim().slice(0, MAX_PROMPT_LENGTH)
 
+  // Limit by IP: the anon cookie is only for credit and is trivially cleared.
   const limit = await checkThemeGenLimit(clientIp(request))
   if (!limit.ok) {
     return Response.json(
       {
         error:
-          limit.scope === "ip"
+          limit.scope === "visitor"
             ? "You've used all your free generations for today."
             : "The theme generator hit its daily limit. Back tomorrow.",
         limited: true,
@@ -112,9 +123,27 @@ export async function POST(request: Request) {
       return Response.json({ error: "The model returned invalid colors. Try again." }, { status: 502 })
     }
 
-    const theme = { name: output.name.slice(0, 40), prompt: trimmed, dark, light }
+    const theme = { name: output.name.slice(0, 40), prompt: trimmed, dark, light, shape: clampShape(output.shape) }
+    const existingAnon = readAnonCookie(request)
+    const anon = existingAnon ?? newAnonHandle()
     const id = await saveTheme(theme)
-    return Response.json({ ...theme, id: id ?? undefined, remaining: limit.remaining })
+    if (id) {
+      try {
+        await addToCorner({ ...theme, id, anon, createdAt: Date.now() })
+      } catch (error) {
+        console.error("generate-theme: adding to themes corner failed", error)
+      }
+    }
+    const headers = new Headers()
+    // Secure only over HTTPS (always true on Vercel); a Secure cookie on plain http gets dropped.
+    const isHttps = (request.headers.get("x-forwarded-proto") ?? new URL(request.url).protocol.replace(":", "")) === "https"
+    if (!existingAnon) {
+      headers.append(
+        "Set-Cookie",
+        `${ANON_COOKIE}=${encodeURIComponent(anon)}; Path=/; Max-Age=31536000; SameSite=Lax; HttpOnly${isHttps ? "; Secure" : ""}`
+      )
+    }
+    return Response.json({ ...theme, id: id ?? undefined, anon, remaining: limit.remaining }, { headers })
   } catch (error) {
     if (error instanceof Anthropic.RateLimitError) {
       return Response.json({ error: "Too many requests right now. Try again in a minute." }, { status: 429 })

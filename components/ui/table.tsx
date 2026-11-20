@@ -10,7 +10,7 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
       data-slot="table-container"
       className={cn(
         "relative w-full overflow-x-auto",
-        "bg-[rgb(var(--glitch-surface))] text-[rgb(var(--glitch-primary))] border border-[rgb(var(--glitch-border)/50%)] clip-corners-table overflow-hidden group",
+        "bg-[rgb(var(--glitch-surface))] text-[rgb(var(--glitch-primary))] border border-[rgb(var(--glitch-border)/50%)] clip-corners-table overflow-hidden group rounded-[var(--glitch-radius,0px)]",
         "shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/20%),0_0_0_1px_rgb(var(--glitch-accent)/15%),0_4px_24px_rgba(0,0,0,0.4)]",
         "hover:border-[rgb(var(--glitch-border-hover)/70%)] hover:shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/30%),0_0_16px_rgb(var(--glitch-accent)/30%),0_0_32px_rgb(var(--glitch-accent)/15%)]",
         "transition-all duration-300",

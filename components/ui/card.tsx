@@ -6,12 +6,12 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card"
       className={cn(
-        "bg-[rgb(var(--glitch-surface))] text-[rgb(var(--glitch-primary))] border border-[rgb(var(--glitch-border)/50%)] [clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))] relative overflow-hidden group",
+        "bg-[rgb(var(--glitch-surface))] text-[rgb(var(--glitch-primary))] border border-[rgb(var(--glitch-border)/50%)] [clip-path:var(--glitch-clip,polygon(0_var(--glitch-cut,8px),var(--glitch-cut,8px)_0,calc(100%-var(--glitch-cut,8px))_0,100%_var(--glitch-cut,8px),100%_calc(100%-var(--glitch-cut,8px)),calc(100%-var(--glitch-cut,8px))_100%,var(--glitch-cut,8px)_100%,0_calc(100%-var(--glitch-cut,8px))))] rounded-[var(--glitch-radius,0px)] relative overflow-hidden group",
         "shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/20%),0_0_0_1px_rgb(var(--glitch-accent)/15%),0_4px_24px_rgba(0,0,0,0.4)]",
         "hover:border-[rgb(var(--glitch-border-hover)/70%)] hover:shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/30%),0_0_16px_rgb(var(--glitch-accent)/30%),0_0_32px_rgb(var(--glitch-accent)/15%)]",
         "transition-all duration-300",
         "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgb(var(--glitch-accent)/3%)_50%,transparent_100%)] before:bg-size[100%_4px] before-animate[scanline_8s_linear_infinite] before:pointer-events-none before:z-0",
-        "after:content-[''] after:absolute after:top-0 after:left-0 after:w-3 after:h-3 after:border-l-2 after:border-t-2 after:border-[rgb(var(--glitch-accent)/60%)] after:transition-all after:duration-300 hover:after:w-4 hover:after:h-4 hover:after:border-[rgb(var(--glitch-accent))]",
+        "after:content-[''] after:absolute after:top-0 after:left-0 after:w-[calc(0.75rem+var(--glitch-radius,0px)/2)] after:h-[calc(0.75rem+var(--glitch-radius,0px)/2)] after:rounded-tl-[var(--glitch-radius,0px)] after:border-l-2 after:border-t-2 after:border-[rgb(var(--glitch-accent)/60%)] after:transition-all after:duration-300 hover:after:w-[calc(1rem+var(--glitch-radius,0px)/2)] hover:after:h-[calc(1rem+var(--glitch-radius,0px)/2)] hover:after:border-[rgb(var(--glitch-accent))]",
         "*:relative *:z-1",
         className
       )}

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const alertVariants = cva(
-  "relative w-full [clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))] border px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current overflow-hidden transition-all duration-300 font-mono after:content-[''] after:absolute after:top-0 after:left-0 after:w-2 after:h-2 after:border-l-2 after:border-t-2 after:border-[rgb(var(--glitch-accent)/60%)] after:transition-all after:duration-300 after:pointer-events-none after:z-10 hover:after:w-3 hover:after:h-3 [&>*]:relative [&>*]:z-[1]",
+  "relative w-full [clip-path:var(--glitch-clip,polygon(0_var(--glitch-cut,8px),var(--glitch-cut,8px)_0,calc(100%-var(--glitch-cut,8px))_0,100%_var(--glitch-cut,8px),100%_calc(100%-var(--glitch-cut,8px)),calc(100%-var(--glitch-cut,8px))_100%,var(--glitch-cut,8px)_100%,0_calc(100%-var(--glitch-cut,8px))))] rounded-[var(--glitch-radius,0px)] border px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current overflow-hidden transition-all duration-300 font-mono after:content-[''] after:absolute after:top-0 after:left-0 after:w-2 after:h-2 after:border-l-2 after:border-t-2 after:border-[rgb(var(--glitch-accent)/60%)] after:transition-all after:duration-300 after:pointer-events-none after:z-10 hover:after:w-3 hover:after:h-3 [&>*]:relative [&>*]:z-[1]",
   {
     variants: {
       variant: {

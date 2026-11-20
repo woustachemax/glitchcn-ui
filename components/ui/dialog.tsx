@@ -41,7 +41,7 @@ const DialogContent = React.forwardRef<
 
         "bg-[rgb(var(--glitch-surface))] text-[rgb(var(--glitch-primary))] border-[rgb(var(--glitch-border)/50%)]",
         "shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/20%),0_0_0_1px_rgb(var(--glitch-accent)/15%),0_8px_32px_rgba(0,0,0,0.6)]",
-        "[clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))]",
+        "[clip-path:var(--glitch-clip,polygon(0_var(--glitch-cut,8px),var(--glitch-cut,8px)_0,calc(100%-var(--glitch-cut,8px))_0,100%_var(--glitch-cut,8px),100%_calc(100%-var(--glitch-cut,8px)),calc(100%-var(--glitch-cut,8px))_100%,var(--glitch-cut,8px)_100%,0_calc(100%-var(--glitch-cut,8px))))] rounded-[var(--glitch-radius,0px)]",
 
         "duration-200 data-[state=open]:animate-in data-[state=open]:zoom-in-95 data-[state=open]:fade-in-0",
         "data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=closed]:fade-out-0",
@@ -56,7 +56,7 @@ const DialogContent = React.forwardRef<
         className={cn(
           "absolute right-4 top-4 p-1",
           "text-[rgb(var(--glitch-border-hover))] hover:text-[rgb(var(--glitch-primary))]",
-          "[clip-path:polygon(0_3px,3px_0,calc(100%-3px)_0,100%_3px,100%_calc(100%-3px),calc(100%-3px)_100%,3px_100%,0_calc(100%-3px))]",
+          "[clip-path:var(--glitch-clip,polygon(0_calc(var(--glitch-cut,8px)*0.375),calc(var(--glitch-cut,8px)*0.375)_0,calc(100%-var(--glitch-cut,8px)*0.375)_0,100%_calc(var(--glitch-cut,8px)*0.375),100%_calc(100%-var(--glitch-cut,8px)*0.375),calc(100%-var(--glitch-cut,8px)*0.375)_100%,calc(var(--glitch-cut,8px)*0.375)_100%,0_calc(100%-var(--glitch-cut,8px)*0.375)))] rounded-[var(--glitch-radius,0px)]",
           "hover:bg-[rgb(var(--glitch-border)/10%)]",
           "focus:outline-none focus:ring-2 focus:ring-[rgb(var(--glitch-border-hover))] focus:ring-offset-2 focus:ring-offset-[rgb(var(--glitch-surface))]"
         )}

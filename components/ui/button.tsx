@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-mono tracking-[0.2em] uppercase text-lg font-bold transition-all duration-150 disabled:pointer-events-none disabled:opacity-25 [&_svg:not([class*='size-'])]:size-4 outline-none relative overflow-hidden group cursor-pointer [clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-mono tracking-[0.2em] uppercase text-lg font-bold transition-all duration-150 disabled:pointer-events-none disabled:opacity-25 [&_svg:not([class*='size-'])]:size-4 outline-none relative overflow-hidden group cursor-pointer [clip-path:var(--glitch-clip,polygon(0_var(--glitch-cut,8px),var(--glitch-cut,8px)_0,calc(100%-var(--glitch-cut,8px))_0,100%_var(--glitch-cut,8px),100%_calc(100%-var(--glitch-cut,8px)),calc(100%-var(--glitch-cut,8px))_100%,var(--glitch-cut,8px)_100%,0_calc(100%-var(--glitch-cut,8px))))] rounded-[var(--glitch-radius,0px)]",
   {
     variants: {
       variant: {
@@ -58,18 +58,26 @@ function Button({
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
   }) {
-  const Comp = asChild ? Slot : "button"
+  const classes = cn(buttonVariants({ variant, size, className }))
+  const inner = (content: React.ReactNode) => (
+    <span className="relative z-10 flex items-center justify-center gap-2">{content}</span>
+  )
+
+  // asChild: put the button styles on the child element itself (e.g. a <Link>) so the
+  // whole button is clickable, and wrap the child's own content in the z-10 span that
+  // keeps text above the glitch overlays.
+  if (asChild && React.isValidElement<{ children?: React.ReactNode }>(children)) {
+    return (
+      <Slot data-slot="button" className={classes} {...(props as React.HTMLAttributes<HTMLElement>)}>
+        {React.cloneElement(children, undefined, inner(children.props.children))}
+      </Slot>
+    )
+  }
 
   return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    >
-      <span className="relative z-10 flex items-center justify-center gap-2">
-        {children}
-      </span>
-    </Comp>
+    <button data-slot="button" className={classes} {...props}>
+      {inner(children)}
+    </button>
   )
 }
 

@@ -11,7 +11,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         "bg-[rgb(var(--glitch-surface))] text-[rgb(var(--glitch-primary))] border-[rgb(var(--glitch-border)/50%)]",
         "placeholder:text-[rgb(var(--glitch-primary)/40%)] placeholder:font-mono",
         "font-mono tracking-wide",
-        "[clip-path:polygon(0_4px,4px_0,calc(100%-4px)_0,100%_4px,100%_calc(100%-4px),calc(100%-4px)_100%,4px_100%,0_calc(100%-4px))]",
+        "[clip-path:var(--glitch-clip,polygon(0_calc(var(--glitch-cut,8px)/2),calc(var(--glitch-cut,8px)/2)_0,calc(100%-var(--glitch-cut,8px)/2)_0,100%_calc(var(--glitch-cut,8px)/2),100%_calc(100%-var(--glitch-cut,8px)/2),calc(100%-var(--glitch-cut,8px)/2)_100%,calc(var(--glitch-cut,8px)/2)_100%,0_calc(100%-var(--glitch-cut,8px)/2)))] rounded-[var(--glitch-radius,0px)]",
         "relative",
         "shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/10%),0_0_0_1px_rgb(var(--glitch-accent)/10%)]",
         "focus:border-[rgb(var(--glitch-border-hover))] focus:shadow-[0_0_8px_rgb(var(--glitch-accent)/30%),inset_0_1px_0_0_rgb(var(--glitch-accent)/20%)]",

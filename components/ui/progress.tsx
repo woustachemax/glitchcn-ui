@@ -14,7 +14,7 @@ function Progress({
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        "relative h-2 w-full overflow-hidden",
+        "relative h-2 w-full overflow-hidden rounded-[var(--glitch-radius,0px)]",
         "bg-[rgb(var(--glitch-surface))] border border-[rgb(var(--glitch-border)/30%)]",
         "shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/10%)]",
         "clip-path-[polygon(0_2px,2px_0,calc(100%-2px)_0,100%_2px,100%_calc(100%-2px),calc(100%-2px)_100%,2px_100%,0_calc(100%-2px))]",

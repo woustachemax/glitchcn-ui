@@ -77,7 +77,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var d=document.documentElement;var t=localStorage.getItem('glitch-theme')||'emerald';var m=localStorage.getItem('glitch-mode')||'dark';d.dataset.glitchTheme=t;d.dataset.mode=m;if(t==='custom'){var c=JSON.parse(localStorage.getItem('glitch-custom-theme')||'null');var p=c&&c[m==='light'?'light':'dark'];if(p){for(var k in p){d.style.setProperty('--glitch-'+k,p[k]);}}else{d.dataset.glitchTheme='emerald';}}}catch(e){}})();`,
+            __html: `(function(){try{var d=document.documentElement;var t=localStorage.getItem('glitch-theme')||'emerald';var m=localStorage.getItem('glitch-mode')||'dark';d.dataset.glitchTheme=t;d.dataset.mode=m;if(t==='custom'){var c=JSON.parse(localStorage.getItem('glitch-custom-theme')||'null');var p=c&&c[m==='light'?'light':'dark'];if(p){for(var k in p){d.style.setProperty('--glitch-'+k,p[k]);}var s=c.shape;if(s){var r=Math.max(0,Math.min(24,+s.radius||0)),u=r>0?0:Math.max(0,Math.min(16,s.cut==null?8:+s.cut||0));d.style.setProperty('--glitch-radius',r+'px');d.style.setProperty('--glitch-cut',u+'px');d.style.setProperty('--radius',(r>0?r:u>0?10:0)+'px');d.style.setProperty('--glitch-clip',r>0?'inset(0 round '+r+'px)':'initial');}}else{d.dataset.glitchTheme='emerald';}}}catch(e){}})();`,
           }}
         />
       </head>

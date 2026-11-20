@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center gap-1 font-mono tracking-[0.15em] uppercase text-[10px] font-bold transition-all duration-200 [clip-path:polygon(0_4px,4px_0,calc(100%-4px)_0,100%_4px,100%_calc(100%-4px),calc(100%-4px)_100%,4px_100%,0_calc(100%-4px))] relative overflow-hidden cursor-default w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 [&>svg]:pointer-events-none",
+  "inline-flex items-center justify-center gap-1 font-mono tracking-[0.15em] uppercase text-[10px] font-bold transition-all duration-200 [clip-path:var(--glitch-clip,polygon(0_calc(var(--glitch-cut,8px)/2),calc(var(--glitch-cut,8px)/2)_0,calc(100%-var(--glitch-cut,8px)/2)_0,100%_calc(var(--glitch-cut,8px)/2),100%_calc(100%-var(--glitch-cut,8px)/2),calc(100%-var(--glitch-cut,8px)/2)_100%,calc(var(--glitch-cut,8px)/2)_100%,0_calc(100%-var(--glitch-cut,8px)/2)))] rounded-[var(--glitch-radius,0px)] relative overflow-hidden cursor-default w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 [&>svg]:pointer-events-none",
   {
     variants: {
       variant: {

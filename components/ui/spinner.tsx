@@ -65,7 +65,7 @@ function LoadingOverlay({
         "absolute inset-0 z-50 flex flex-col items-center justify-center gap-4",
         "bg-[rgb(var(--glitch-surface))]/95 backdrop-blur-sm",
         "border border-[rgb(var(--glitch-border)/30%)]",
-        "[clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))]",
+        "[clip-path:var(--glitch-clip,polygon(0_var(--glitch-cut,8px),var(--glitch-cut,8px)_0,calc(100%-var(--glitch-cut,8px))_0,100%_var(--glitch-cut,8px),100%_calc(100%-var(--glitch-cut,8px)),calc(100%-var(--glitch-cut,8px))_100%,var(--glitch-cut,8px)_100%,0_calc(100%-var(--glitch-cut,8px))))] rounded-[var(--glitch-radius,0px)]",
         "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgb(var(--glitch-accent)/5%)_50%,transparent_100%)]",
         "before:bg-size[100%_4px] before:pointer-events-none",
         className

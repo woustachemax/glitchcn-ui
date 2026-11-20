@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
+import Link from "next/link"
 import { Sparkles } from "lucide-react"
 import { openThemeGenerator } from "@/components/theme-generator"
 import { Card } from "@/components/ui/card"
@@ -193,6 +194,12 @@ export function ThemeHero() {
               <Sparkles size={14} /> generate
             </button>
           </form>
+          <Link
+            href="/themes"
+            className="inline-flex items-center gap-1 text-xs text-[rgb(var(--glitch-accent))] hover:underline"
+          >
+            or browse the themes corner &rarr;
+          </Link>
         </div>
       </div>
     </Card>

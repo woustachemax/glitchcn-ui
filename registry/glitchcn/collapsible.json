@@ -4,7 +4,8 @@
   "dependencies": [
     "clsx",
     "tailwind-merge",
-    "lucide-react"
+    "lucide-react",
+    "@radix-ui/react-collapsible"
   ],
   "devDependencies": [],
   "registryDependencies": [],

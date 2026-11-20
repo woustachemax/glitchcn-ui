@@ -27,7 +27,7 @@ function TabsList({
       data-slot="tabs-list"
       className={cn(
         "inline-flex h-9 w-fit items-center justify-center p-[3px] gap-1",
-        "bg-[rgb(var(--glitch-surface))] border border-[rgb(var(--glitch-border)/50%)] clip-corners-tabs relative overflow-hidden",
+        "bg-[rgb(var(--glitch-surface))] border border-[rgb(var(--glitch-border)/50%)] clip-corners-tabs relative overflow-hidden rounded-[var(--glitch-radius,0px)]",
         "shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/20%),0_0_0_1px_rgb(var(--glitch-accent)/15%)]",
         "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgb(var(--glitch-accent)/3%)_50%,transparent_100%)] before:bg-size[:100%_4px] before:animate-scanline before:pointer-events-none before:z-0",
         className
@@ -45,7 +45,7 @@ function TabsTrigger({
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        "inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-300",
+        "inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-300 rounded-[calc(var(--glitch-radius,0px)*0.7)]",
         "font-mono uppercase tracking-wider",
         "text-[rgb(var(--glitch-primary)/70%)] border border-transparent",
         "hover:text-[rgb(var(--glitch-primary))] hover:bg-[rgb(var(--glitch-surface-hover))]/50",

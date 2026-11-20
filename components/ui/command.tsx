@@ -21,10 +21,10 @@ function Command({
       data-slot="command"
       className={cn(
         "bg-[rgb(var(--glitch-surface))] text-[rgb(var(--glitch-primary))] flex h-full w-full flex-col overflow-hidden border border-[rgb(var(--glitch-border)/50%)] relative",
-        "[clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))]",
+        "[clip-path:var(--glitch-clip,polygon(0_var(--glitch-cut,8px),var(--glitch-cut,8px)_0,calc(100%-var(--glitch-cut,8px))_0,100%_var(--glitch-cut,8px),100%_calc(100%-var(--glitch-cut,8px)),calc(100%-var(--glitch-cut,8px))_100%,var(--glitch-cut,8px)_100%,0_calc(100%-var(--glitch-cut,8px))))] rounded-[var(--glitch-radius,0px)]",
         "shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/20%),0_0_0_1px_rgb(var(--glitch-accent)/15%)]",
         "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgb(var(--glitch-accent)/3%)_50%,transparent_100%)] before:bg-size[100%_4px] before:pointer-events-none",
-        "after:content-[''] after:absolute after:top-0 after:left-0 after:w-3 after:h-3 after:border-l-2 after:border-t-2 after:border-[rgb(var(--glitch-accent)/60%)] after:transition-all after:duration-300 after:pointer-events-none after:z-50",
+        "after:content-[''] after:absolute after:top-0 after:left-0 after:w-[calc(0.75rem+var(--glitch-radius,0px)/2)] after:h-[calc(0.75rem+var(--glitch-radius,0px)/2)] after:rounded-tl-[var(--glitch-radius,0px)] after:border-l-2 after:border-t-2 after:border-[rgb(var(--glitch-accent)/60%)] after:transition-all after:duration-300 after:pointer-events-none after:z-50",
         "hover:after:w-4 hover:after:h-4 hover:after:border-[rgb(var(--glitch-accent))]",
         className
       )}

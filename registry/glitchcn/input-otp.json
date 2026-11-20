@@ -4,7 +4,8 @@
   "dependencies": [
     "clsx",
     "tailwind-merge",
-    "lucide-react"
+    "lucide-react",
+    "input-otp"
   ],
   "devDependencies": [],
   "registryDependencies": [],

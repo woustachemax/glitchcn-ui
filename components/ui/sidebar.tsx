@@ -243,7 +243,7 @@ function Sidebar({
           "shadow-[inset_0_1px_0_0_rgb(var(--glitch-accent)/20%),0_0_0_1px_rgb(var(--glitch-accent)/20%),0_0_16px_rgb(var(--glitch-accent)/10%)]",
           "relative overflow-hidden",
           "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgb(var(--glitch-accent)/3%)_50%,transparent_100%)] before:bg-size[100%_4px] before:animate-scanline before:pointer-events-none",
-          "after:absolute after:top-0 after:left-0 after:w-3 after:h-3 after:border-l-2 after:border-t-2 after:border-[rgb(var(--glitch-accent)/70%)]",
+          "after:absolute after:top-0 after:left-0 after:w-[calc(0.75rem+var(--glitch-radius,0px)/2)] after:h-[calc(0.75rem+var(--glitch-radius,0px)/2)] after:rounded-tl-[var(--glitch-radius,0px)] after:border-l-2 after:border-t-2 after:border-[rgb(var(--glitch-accent)/70%)]",
           "clip-corners-sidebar",
           "group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
         )}

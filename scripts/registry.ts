@@ -8,21 +8,35 @@ const libDir = path.join(process.cwd(), 'lib');
 const componentDeps: Record<string, string[]> = {
   accordion: ['@radix-ui/react-accordion'],
   alert: ['class-variance-authority'],
-  badge: ['class-variance-authority'],
+  badge: ['@radix-ui/react-slot', 'class-variance-authority'],
   button: ['@radix-ui/react-slot', 'class-variance-authority'],
   card: [],
+  checkbox: ['@radix-ui/react-checkbox'],
+  collapsible: ['@radix-ui/react-collapsible'],
   command: ['cmdk', '@radix-ui/react-dialog'],
   dialog: ['@radix-ui/react-dialog', '@radix-ui/react-icons'],
   input: [],
+  'input-otp': ['input-otp'],
   progress: ['@radix-ui/react-progress'],
   separator: ['@radix-ui/react-separator'],
   sheet: ['@radix-ui/react-dialog', 'class-variance-authority'],
-  sidebar: ['@radix-ui/react-separator', '@radix-ui/react-slot'],
+  sidebar: ['@radix-ui/react-separator', '@radix-ui/react-slot', 'class-variance-authority'],
   skeleton: [],
   spinner: ['class-variance-authority', 'lucide-react'],
   table: [],
   tabs: ['@radix-ui/react-tabs'],
   tooltip: ['@radix-ui/react-tooltip'],
+};
+
+// Other glitchcn components a component imports, so the shadcn CLI installs them too.
+const componentRegistryDeps: Record<string, string[]> = {
+  command: ['@glitchcn/dialog'],
+  sidebar: ['@glitchcn/button', '@glitchcn/input', '@glitchcn/separator', '@glitchcn/sheet', '@glitchcn/skeleton', '@glitchcn/tooltip'],
+};
+
+// Extra non-component files a component needs.
+const componentExtraFiles: Record<string, { path: string; type: string }[]> = {
+  sidebar: [{ path: 'hooks/use-mobile.ts', type: 'registry:hook' }],
 };
 
 const baseDeps: string[] = ['clsx', 'tailwind-merge', 'lucide-react'];
@@ -43,7 +57,7 @@ componentFiles.forEach((file: string) => {
     type: 'registry:ui',
     dependencies: [...baseDeps, ...(componentDeps[componentName] || [])],
     devDependencies: [],
-    registryDependencies: [],
+    registryDependencies: componentRegistryDeps[componentName] || [],
     files: [
       {
         path: `components/ui/${file}`,
@@ -56,7 +70,13 @@ componentFiles.forEach((file: string) => {
         content: utilsContent,
         type: 'registry:lib',
         target: 'lib/utils.ts'
-      }
+      },
+      ...(componentExtraFiles[componentName] || []).map((extra) => ({
+        path: extra.path,
+        content: fs.readFileSync(path.join(process.cwd(), extra.path), 'utf8'),
+        type: extra.type,
+        target: extra.path,
+      })),
     ],
     tailwind: {
       config: {

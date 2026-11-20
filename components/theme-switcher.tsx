@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Palette, Sun, Moon, Check, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { ThemeGenerator, OPEN_GENERATOR_EVENT } from "@/components/theme-generator"
+import { ThemeGenerator, OPEN_GENERATOR_EVENT, type OpenGeneratorDetail } from "@/components/theme-generator"
 import {
   applyCustomPalette,
   clearCustomPalette,
@@ -58,7 +58,7 @@ function applyTheme(theme: ThemeId, mode: Mode, custom: CustomTheme | null) {
   document.documentElement.dataset.mode = mode
   if (custom) {
     document.documentElement.dataset.glitchTheme = "custom"
-    applyCustomPalette(custom[mode])
+    applyCustomPalette(custom[mode], custom.shape)
     applyFavicon({ border: tripletToHex(custom.dark.border), accent: tripletToHex(custom.dark.accent) })
     return
   }
@@ -77,11 +77,13 @@ export function ThemeSwitcher({ className }: { className?: string }) {
   const [preview, setPreview] = React.useState<CustomTheme | null>(null)
   const [generatorOpen, setGeneratorOpen] = React.useState(false)
   const [autoPrompt, setAutoPrompt] = React.useState<string | null>(null)
+  const [autoTheme, setAutoTheme] = React.useState<CustomTheme | null>(null)
 
   React.useEffect(() => {
     const onOpen = (event: Event) => {
-      const prompt = (event as CustomEvent<{ prompt?: string }>).detail?.prompt?.trim()
-      setAutoPrompt(prompt || null)
+      const detail = (event as CustomEvent<OpenGeneratorDetail>).detail
+      setAutoPrompt(detail?.prompt?.trim() || null)
+      setAutoTheme(detail?.theme ?? null)
       setGeneratorOpen(true)
       setOpen(false)
     }
@@ -158,9 +160,16 @@ export function ThemeSwitcher({ className }: { className?: string }) {
   return (
     <div ref={containerRef} className={cn("relative flex items-center gap-1", className)}>
       {showHint && (
-        <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-wider text-[rgb(var(--glitch-accent))] animate-pulse mr-1">
+        <button
+          type="button"
+          onClick={() => {
+            setOpen(true)
+            dismissHint()
+          }}
+          className="hidden sm:inline font-mono text-[10px] uppercase tracking-wider text-[rgb(var(--glitch-accent))] animate-pulse mr-1 hover:underline cursor-pointer"
+        >
           5 themes + AI, try me
-        </span>
+        </button>
       )}
       <button
         type="button"
@@ -240,6 +249,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
             type="button"
             onClick={() => {
               setAutoPrompt(null)
+              setAutoTheme(null)
               setGeneratorOpen(true)
               setOpen(false)
             }}
@@ -257,9 +267,11 @@ export function ThemeSwitcher({ className }: { className?: string }) {
       <ThemeGenerator
         open={generatorOpen}
         autoPrompt={autoPrompt}
+        autoTheme={autoTheme}
         onClose={() => {
           setGeneratorOpen(false)
           setAutoPrompt(null)
+          setAutoTheme(null)
         }}
         onPreview={handlePreview}
         onKeep={handleKeep}

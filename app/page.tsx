@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { ThemeHero } from "@/components/theme-hero";
+import { ThemesCorner } from "@/components/themes-corner";
 
 // Drifts each value around its base so the demo dashboard feels alive.
 function useLiveValues(bases: number[], spread = 12, ms = 1400) {
@@ -88,6 +89,9 @@ export default function Home() {
           </Link>
           <div className="flex items-center gap-2">
             <ThemeSwitcher />
+            <Button size="sm" asChild>
+              <Link href="/themes">Themes</Link>
+            </Button>
             <Button size="sm" className="hidden sm:inline-flex" asChild onClick={() => router.push('/docs')}>
               Docs
             </Button>
@@ -103,6 +107,10 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-3" id="components">
           <div className="lg:col-span-12">
             <ThemeHero />
+          </div>
+
+          <div className="lg:col-span-12">
+            <ThemesCorner preview />
           </div>
 
           <div className="lg:col-span-3 space-y-2 sm:space-y-3">
